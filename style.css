@@ -256,6 +256,7 @@ details[open] p { animation: fade .45s var(--ease); }
 .foot .brand-star { fill: var(--fg); }
 .foot p { color: var(--fg-soft); }
 .foot-line { margin-top: 12px; font-size: 15px; }
+.foot-legal { margin-top: 20px; font-size: 13px; line-height: 1.55; max-width: 38ch; }
 .foot address { font-style: normal; line-height: 1.7; }
 .foot address b { display: block; color: var(--fg); font-weight: 600; letter-spacing: .02em; margin-bottom: 6px; }
 .foot dl { display: grid; gap: 12px; }
