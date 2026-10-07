@@ -249,7 +249,7 @@ details[open] p { animation: fade .45s var(--ease); }
 .cta p { font-size: 18px; margin-bottom: 36px; max-width: 44ch; position: relative; }
 .cta-star { position: absolute; right: -60px; bottom: -80px; width: clamp(240px, 36vw, 460px); fill: none; stroke: #e0a52a66; stroke-width: .15; animation: spin 60s linear infinite; }
 
-.foot { --fg: #1a1406; --fg-soft: #5e4815; --fg-line: #1a140626; position: relative; overflow: hidden; background: var(--gold); color: var(--fg-soft); padding: 72px 0 0; font-size: 15px; border-radius: 32px 32px 0 0; }
+.foot { --fg: #140f04; --fg-soft: #2e2208; --fg-line: #140f0433; position: relative; overflow: hidden; background: var(--gold-3); color: var(--fg-soft); padding: 72px 0 0; font-size: 15px; border-radius: 32px 32px 0 0; }
 .foot-grid { display: grid; gap: 32px; padding-bottom: 48px; }
 @media (min-width: 760px) { .foot-grid { grid-template-columns: 1.2fr 1fr 1fr; gap: 48px; } }
 .foot .brand { color: var(--fg); }
