@@ -249,8 +249,21 @@ details[open] p { animation: fade .45s var(--ease); }
 .cta p { font-size: 18px; margin-bottom: 36px; max-width: 44ch; position: relative; }
 .cta-star { position: absolute; right: -60px; bottom: -80px; width: clamp(240px, 36vw, 460px); fill: none; stroke: #e0a52a66; stroke-width: .15; animation: spin 60s linear infinite; }
 
-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px; padding: 28px 0 40px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
-footer a:hover { color: var(--ink); }
+.foot { border-top: 1px solid var(--line); padding: 56px 0 32px; font-size: 15px; color: var(--muted); }
+.foot-grid { display: grid; gap: 32px; padding-bottom: 40px; }
+@media (min-width: 760px) { .foot-grid { grid-template-columns: 1.2fr 1fr 1fr; gap: 48px; } }
+.foot .brand { color: var(--ink); }
+.foot-line { margin-top: 12px; font-size: 15px; }
+.foot address { font-style: normal; line-height: 1.7; }
+.foot address b { display: block; color: var(--ink); font-weight: 600; letter-spacing: .02em; margin-bottom: 6px; }
+.foot dl { display: grid; gap: 12px; }
+.foot dt { font-size: 13px; }
+.foot dd { color: var(--ink); font: 500 15px var(--mono); }
+.foot a:hover { color: var(--ink); }
+.foot dd a { text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 4px; }
+.foot-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 14px; }
+.foot-bottom nav { display: flex; flex-wrap: wrap; gap: 8px 24px; color: var(--muted); font-size: 14px; }
+.foot-bottom nav a::after { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

@@ -3,11 +3,11 @@ const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 // Hero readout: cycles through illustrative routing examples
 const readout = document.querySelector('.readout');
 const lines = [
-  'Card payment, £84.00, routed to lowest cost acquirer',
-  'Apple Pay, £12.50, approved first time',
-  'Open Banking, £1,240.00, no card fees applied',
+  'Card payment, €84.00, routed to lowest cost acquirer',
+  'Apple Pay, €12.50, approved first time',
+  'Open Banking, €1,240.00, no card fees applied',
   'Declined card retried on backup acquirer, approved',
-  'Subscription renewal, £29.00, card details auto updated',
+  'Subscription renewal, €29.00, card details auto updated',
 ];
 let li = 0;
 if (readout && !reduced) setInterval(() => {
