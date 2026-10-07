@@ -114,33 +114,28 @@
       <p>Your provider shows you one blended rate. Underneath it are five different charges. Two are fixed by the card schemes. The other three are a negotiation nobody had on your behalf.</p>
     </div>
 
-    <div class="fee-panel" data-state="before">
+    <div class="fee-panel">
       <div class="fee-top">
         <div>
           <div class="fee-total"><span class="num" data-total>1.90</span>%</div>
-          <div class="fee-sub" data-sub>What a typical business pays on every card payment</div>
-        </div>
-        <div class="switch" role="group" aria-label="Show fees">
-          <button type="button" aria-pressed="true" data-show="before">Today</button>
-          <button type="button" aria-pressed="false" data-show="after">After a Rumstar review</button>
+          <div class="fee-sub">What a typical business pays on every card payment</div>
         </div>
       </div>
 
       <div class="bar" aria-hidden="true">
-        <i class="seg fixed" data-before="0.30" data-after="0.30"></i>
-        <i class="seg fixed b" data-before="0.12" data-after="0.12"></i>
-        <i class="seg neg" data-before="0.95" data-after="0.48"></i>
-        <i class="seg neg b" data-before="0.25" data-after="0.12"></i>
-        <i class="seg neg c" data-before="0.28" data-after="0.04"></i>
-        <i class="seg saved"></i>
+        <i class="seg fixed" data-v="0.30"></i>
+        <i class="seg fixed b" data-v="0.12"></i>
+        <i class="seg neg" data-v="0.95"></i>
+        <i class="seg neg b" data-v="0.25"></i>
+        <i class="seg neg c" data-v="0.28"></i>
       </div>
 
       <ul class="legend">
-        <li class="fixed"><b>Interchange</b><span data-v="0">0.30%</span><em>Set by card schemes. Passed through.</em></li>
-        <li class="fixed b"><b>Scheme fees</b><span data-v="1">0.12%</span><em>Set by Visa and Mastercard. Passed through.</em></li>
-        <li class="neg"><b>Acquirer margin</b><span data-v="2">0.95%</span><em>Your provider's cut. Negotiable.</em></li>
-        <li class="neg b"><b>Gateway</b><span data-v="3">0.25%</span><em>Often bundled, often overpriced.</em></li>
-        <li class="neg c"><b>Extras</b><span data-v="4">0.28%</span><em>PCI, authorisation, refund and statement fees.</em></li>
+        <li class="fixed"><b>Interchange</b><span>0.30%</span><em>Set by card schemes. Passed through.</em></li>
+        <li class="fixed b"><b>Scheme fees</b><span>0.12%</span><em>Set by Visa and Mastercard. Passed through.</em></li>
+        <li class="neg"><b>Acquirer margin</b><span>0.95%</span><em>Your provider's cut. Negotiable.</em></li>
+        <li class="neg b"><b>Gateway</b><span>0.25%</span><em>Often bundled, often overpriced.</em></li>
+        <li class="neg c"><b>Extras</b><span>0.28%</span><em>PCI, authorisation, refund and statement fees.</em></li>
       </ul>
       <p class="note">Illustrative example for a European business taking mostly card not present payments. Not a quote. Your numbers come from your statements.</p>
     </div>

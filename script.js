@@ -15,52 +15,29 @@ if (readout && !reduced) setInterval(() => {
   setTimeout(() => { li = (li + 1) % lines.length; readout.textContent = lines[li]; readout.classList.remove('swap'); }, 350);
 }, 3200);
 
-// Fee breakdown bar
+// Fee breakdown bar: segments grow and the total counts up when scrolled into view
 const fee = document.querySelector('.fee-panel');
-const segs = [...fee.querySelectorAll('.seg:not(.saved)')];
-const saved = fee.querySelector('.seg.saved');
+const segs = [...fee.querySelectorAll('.seg')];
 const totalEl = fee.querySelector('[data-total]');
-const subEl = fee.querySelector('[data-sub]');
-const vals = [...fee.querySelectorAll('[data-v]')];
-const MAX = segs.reduce((s, x) => s + +x.dataset.before, 0);
-let shown = MAX;
+const TOTAL = segs.reduce((sum, x) => sum + +x.dataset.v, 0);
 
-function countTo(to) {
-  const from = shown; shown = to;
-  if (reduced) { totalEl.textContent = to.toFixed(2); return; }
+function showFees() {
+  segs.forEach(s => s.style.width = (s.dataset.v / TOTAL * 100) + '%');
+  if (reduced) return;
   const t0 = performance.now();
   const tick = (t) => {
-    const k = Math.min(1, (t - t0) / 1000), e = 1 - Math.pow(1 - k, 3);
-    totalEl.textContent = (from + (to - from) * e).toFixed(2);
+    const k = Math.min(1, (t - t0) / 1100), e = 1 - Math.pow(1 - k, 3);
+    totalEl.textContent = (TOTAL * e).toFixed(2);
     if (k < 1) requestAnimationFrame(tick);
   };
   requestAnimationFrame(tick);
 }
 
-function render(state) {
-  fee.dataset.state = state;
-  let total = 0;
-  segs.forEach((s, i) => {
-    const v = +s.dataset[state]; total += v;
-    s.style.width = (v / MAX * 100) + '%';
-    vals[i].textContent = v.toFixed(2) + '%';
-  });
-  saved.style.width = ((MAX - total) / MAX * 100) + '%';
-  saved.style.display = total < MAX ? '' : 'none';
-  countTo(total);
-  subEl.textContent = state === 'after'
-    ? `About ${Math.round((1 - total / MAX) * 100)}% less, on the same payments`
-    : 'What a typical business pays on every card payment';
-  fee.querySelectorAll('[data-show]').forEach(b => b.setAttribute('aria-pressed', b.dataset.show === state));
-}
-fee.querySelectorAll('[data-show]').forEach(b => b.addEventListener('click', () => render(b.dataset.show)));
-saved.style.display = 'none';
-
 // Animate bar and process line once, when scrolled into view
 document.querySelectorAll('.steps li').forEach((li, i) => li.style.setProperty('--i', i));
 const io = new IntersectionObserver((entries) => entries.forEach(e => {
   if (!e.isIntersecting) return;
-  if (e.target === fee) render('before'); else e.target.classList.add('in');
+  if (e.target === fee) showFees(); else e.target.classList.add('in');
   io.unobserve(e.target);
 }), { threshold: 0.35 });
 io.observe(fee);
