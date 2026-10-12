@@ -67,6 +67,7 @@ def how():
         </ul>
       </div>
     </div>
+    <p class="share-note"><b>Sharing documents safely.</b> We agree a secure way to transfer statements and contracts before you send them, and a redacted summary is often enough to start. Never send card numbers, CVVs, passwords or bank login details, to us or anyone else.</p>
   </section>
 
   <section class="wrap">

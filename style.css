@@ -617,3 +617,6 @@ nav#site-nav a[aria-current=page] { color: var(--ink); font-weight: 600; }
 .thanks-grid p { margin-bottom: 16px; }
 .thanks-grid .actions { margin-top: 8px; }
 .notfound-page .page-title { max-width: 12ch; }
+.share-note { margin-top: 20px; padding: 18px 22px; border-radius: 16px; border: 1px dashed #e0a52a99; background: #ffc74d14; color: var(--soft); max-width: 80ch; }
+.share-note b { color: var(--ink); }
+.fine a.link { font-size: inherit; }

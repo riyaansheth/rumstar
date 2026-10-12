@@ -166,7 +166,7 @@ def contact():
         <button type="submit" class="btn" data-submit hidden><span class="btn-label">Send enquiry</span><span class="spinner" aria-hidden="true"></span></button>
       </div>
       <p class="form-error" role="alert" aria-live="assertive"></p>
-      <p class="fine">We use your details only to reply to your enquiry. Sending opens your email app with your answers filled in, addressed to onboarding@rumstar.eu.</p>
+      <p class="fine">Sending opens your email app with your answers filled in, addressed to onboarding@rumstar.eu. We use your details to reply to your enquiry, as explained in our <a class="link" href="privacy.html">Privacy Notice</a>. Please do not include card numbers, CVVs, passwords or bank login details.</p>
 
     </form>
 
@@ -190,7 +190,7 @@ def contact():
       </div>
       <div class="facts-card">
         <h3>Have these ready</h3>
-        <p>Your recent processing statements and current contract make the first call far more useful. <a class="link" href="how-we-work.html#checklist">Full checklist</a></p>
+        <p>Your recent processing statements and current contract make the first call far more useful. Do not email them yet: we will agree a secure way to share them, and a redacted summary is often enough to start. <a class="link" href="how-we-work.html#checklist">Full checklist</a></p>
       </div>
     </aside>
   </section>'''

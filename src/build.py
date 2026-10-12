@@ -5,7 +5,7 @@ from shell import SITE
 from pages_a import home, services
 from pages_b import how, industries, guide
 from pages_c import about, faq, contact
-from pages_d import privacy, terms, cookies, thank_you, not_found
+from pages_d import privacy, terms, cookies, complaints, thank_you, not_found
 
 OUT = os.environ.get('OUT', os.path.join(os.path.dirname(os.path.abspath(__file__)), '..') + '/')
 LASTMOD = "2026-10-12"
@@ -23,6 +23,7 @@ pages = [
     ('privacy.html', privacy(), True, '0.3'),
     ('terms.html', terms(), True, '0.3'),
     ('cookies.html', cookies(), True, '0.3'),
+    ('complaints.html', complaints(), True, '0.3'),
     ('thank-you.html', thank_you(), False, None),
     ('404.html', not_found(), False, None),
 ]

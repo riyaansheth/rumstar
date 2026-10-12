@@ -6,6 +6,7 @@ SITE = "https://rumstar.eu"
 STAR = '<path d="M16 1 C17.5 11 21 14.5 31 16 C21 17.5 17.5 21 16 31 C14.5 21 11 17.5 1 16 C11 14.5 14.5 11 16 1Z"/>'
 
 # Cloudflare Web Analytics site token (cookieless). Leave empty to load no analytics at all.
+# Before setting it, update the Privacy and Cookie notices in pages_d.py: they currently state that no analytics runs.
 ANALYTICS_TOKEN = ""
 
 NAV = [
@@ -146,9 +147,10 @@ def page(file, title, description, body, body_class="", noindex=False, mobile_ct
   <div class="foot-bottom">
     <span>&copy; 2026 RUMSTAR LIMITED. All rights reserved.</span>
     <nav aria-label="Legal">
-      <a href="/privacy.html">Privacy Policy</a>
-      <a href="/terms.html">Terms of Use</a>
-      <a href="/cookies.html">Cookie Policy</a>
+      <a href="/privacy.html">Privacy Notice</a>
+      <a href="/terms.html">Terms &amp; Conditions</a>
+      <a href="/cookies.html">Cookies &amp; Storage</a>
+      <a href="/complaints.html">Complaints</a>
       <button type="button" class="cookie-reopen">Cookie notice</button>
     </nav>
   </div>
@@ -157,7 +159,7 @@ def page(file, title, description, body, body_class="", noindex=False, mobile_ct
 </footer>
 {mcta}
 <div class="cookie-note" role="region" aria-label="Cookie notice" hidden>
-  <p><b>No tracking cookies here.</b> We remember your light or dark mode choice on your device and count visits anonymously, without cookies. <a href="/cookies.html">Cookie policy</a></p>
+  <p><b>No cookies, no tracking.</b> We only remember your light or dark mode choice, and that you have seen this notice, in your own browser. <a href="/cookies.html">Cookies &amp; storage</a></p>
   <button type="button" class="cookie-ok">OK</button>
 </div>
 
