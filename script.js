@@ -165,7 +165,8 @@ if (cta) cta.addEventListener('pointermove', (e) => {
   cta.style.setProperty('--y', `${e.clientY - r.top}px`);
 });
 
-// Contact form: three steps, then opens the visitor's email app with the answers filled in.
+// Contact form: three steps with per-field errors, a loading state, then the thank-you page.
+// The enquiry is handed to the visitor's email app, addressed to onboarding@rumstar.eu.
 // ponytail: mailto has no server side, swap for a form endpoint once one exists
 const form = $('#intake');
 if (form) {
@@ -184,15 +185,28 @@ if (form) {
     err.textContent = '';
     $('input, textarea', fieldsets[n])?.focus({ preventScroll: true });
   };
+  // Returns true when the field is acceptable, and shows or clears its message
+  const check = (input) => {
+    const v = input.value.trim(), msg = input.parentElement.querySelector('.ferr');
+    let bad = false;
+    if (input.required && !v) bad = true;
+    else if (v && (input.type === 'email' || input.type === 'url') && !input.checkValidity()) bad = true;
+    if (msg && input.type === 'email') msg.textContent = v ? msg.dataset.bad : msg.dataset.empty;
+    input.parentElement.classList.toggle('invalid', bad);
+    input.parentElement.classList.toggle('valid', !bad && !!v);
+    input.setAttribute('aria-invalid', bad);
+    return !bad;
+  };
+  const checkable = (scope) => $$('input[required], input[type=email], input[type=url]', scope);
+  checkable(form).forEach(i => {
+    i.addEventListener('blur', () => { if (i.value.trim() || i.parentElement.classList.contains('invalid')) check(i); });
+    i.addEventListener('input', () => { if (i.parentElement.classList.contains('invalid')) check(i); });
+  });
   const valid = () => {
-    let ok = true;
-    $$('input[required]', fieldsets[step]).forEach(i => {
-      const bad = !i.value.trim() || (i.type === 'email' && !i.checkValidity());
-      i.setAttribute('aria-invalid', bad);
-      if (bad && ok) { i.focus(); ok = false; }
-    });
-    if (!ok) err.textContent = 'Please fill in your name, a valid work email and your company.';
-    return ok;
+    const bad = checkable(fieldsets[step]).filter(i => !check(i));
+    err.textContent = bad.length ? `Please fix ${bad.length === 1 ? 'the highlighted field' : `the ${bad.length} highlighted fields`} to continue.` : '';
+    if (bad.length) bad[0].focus();
+    return !bad.length;
   };
   next.addEventListener('click', () => { if (valid()) show(step + 1); });
   back.addEventListener('click', () => show(step - 1));
@@ -201,16 +215,47 @@ if (form) {
   });
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const data = new FormData(form);
+    if (!valid()) return;
     const out = {};
-    for (const [k, v] of data) if (String(v).trim()) out[k] = out[k] ? `${out[k]}, ${v}` : v;
+    for (const [k, v] of new FormData(form)) if (String(v).trim()) out[k] = out[k] ? `${out[k]}, ${v}` : String(v).trim();
     const body = Object.entries(out).map(([k, v]) => `${k}: ${v}`).join('\n');
-    const subject = `Enquiry from ${out.Company || out.Name || 'website'}`;
+    const subject = `Enquiry from ${out.Company || out.Name}`;
+    submit.classList.add('is-loading');
+    submit.setAttribute('aria-busy', 'true');
+    $('.btn-label', submit).textContent = 'Opening your email';
     location.href = `mailto:onboarding@rumstar.eu?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    const done = $('.done', form);
-    done.hidden = false;
-    done.focus();
+    setTimeout(() => { location.href = '/thank-you.html'; }, 1200);
   });
+  // Coming back with the Back button restores the page from cache: reset the button
+  addEventListener('pageshow', () => {
+    submit.classList.remove('is-loading');
+    submit.removeAttribute('aria-busy');
+    $('.btn-label', submit).textContent = 'Send enquiry';
+  });
+}
+
+// Cookie notice: informational only (no tracking cookies), remembered once dismissed
+const note = $('.cookie-note');
+if (note) {
+  let seen = false;
+  try { seen = localStorage.getItem('cookie-notice') === 'ok'; } catch (e) {}
+  if (!seen) note.hidden = false;
+  $('.cookie-ok', note).addEventListener('click', () => {
+    note.hidden = true;
+    try { localStorage.setItem('cookie-notice', 'ok'); } catch (e) {}
+  });
+  $('.cookie-reopen')?.addEventListener('click', () => { note.hidden = false; $('.cookie-ok', note).focus(); });
+}
+
+// Sticky call button on phones: appears after the hero, steps aside for the footer
+const mcta = $('.mcta');
+if (mcta) {
+  const foot = $('.foot');
+  let footerVisible = false;
+  const update = () => mcta.classList.toggle('show', scrollY > innerHeight * 0.6 && !footerVisible);
+  new IntersectionObserver(([e]) => { footerVisible = e.isIntersecting; update(); }).observe(foot);
+  addEventListener('scroll', update, { passive: true });
+  update();
 }
 
 // Theme toggle: light by default, choice remembered, circular reveal where supported
