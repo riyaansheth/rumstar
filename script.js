@@ -1,4 +1,5 @@
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.documentElement.classList.add('js');
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
@@ -80,6 +81,71 @@ if (tocLinks.length) {
     byId.get(e.target.id)?.classList.add('active');
   }), { rootMargin: '-20% 0px -70% 0px' });
   byId.forEach((_, id) => { const el = document.getElementById(id); if (el) spy.observe(el); });
+}
+
+// Industry cards: staggered entrance, then a pointer spotlight and gentle tilt
+const sectorGrid = $('.sector-grid');
+if (sectorGrid) {
+  const cards = $$('.sector', sectorGrid);
+  cards.forEach((c, i) => c.style.setProperty('--i', i));
+  new IntersectionObserver(([e], obs) => {
+    if (!e.isIntersecting) return;
+    sectorGrid.classList.add('in');
+    setTimeout(() => sectorGrid.classList.add('settled'), cards.length * 90 + 1000);
+    obs.disconnect();
+  }, { threshold: 0.1 }).observe(sectorGrid);
+  const canHover = matchMedia('(hover: hover)').matches;
+  cards.forEach(c => {
+    c.addEventListener('pointermove', (e) => {
+      const r = c.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      c.style.setProperty('--mx', `${x * 100}%`);
+      c.style.setProperty('--my', `${y * 100}%`);
+      if (reduced || !canHover) return;
+      c.classList.add('live');
+      c.style.transform = `rotateX(${(0.5 - y) * 6}deg) rotateY(${(x - 0.5) * 8}deg) translateY(-4px)`;
+    });
+    c.addEventListener('pointerleave', () => { c.classList.remove('live'); c.style.transform = ''; });
+  });
+}
+
+// Guide page: 3D card follows the pointer, sections tilt in, reading progress, contents marker
+if (document.body.classList.contains('guide-page')) {
+  const rot = $('.stack-rot');
+  if (rot && !reduced && matchMedia('(hover: hover)').matches) {
+    addEventListener('pointermove', (e) => {
+      const x = e.clientX / innerWidth - 0.5, y = e.clientY / innerHeight - 0.5;
+      rot.style.setProperty('--rz', `${-34 + x * 24}deg`);
+      rot.style.setProperty('--rx', `${56 - y * 18}deg`);
+    }, { passive: true });
+  }
+  const secs = $$('.g-sec');
+  secs.forEach(sec => $$('.terms div', sec).forEach((d, i) => d.style.setProperty('--i', i)));
+  const reveal = new IntersectionObserver((entries) => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); reveal.unobserve(e.target); }
+  }), { threshold: 0.08 });
+  secs.forEach(sec => reveal.observe(sec));
+  const bar = $('.read-progress i');
+  const onScroll = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.setProperty('--p', max > 0 ? scrollY / max : 0);
+  };
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  const list = $('.toc ol');
+  if (list) {
+    const marker = document.createElement('span');
+    marker.className = 'toc-marker';
+    list.appendChild(marker);
+    const move = () => {
+      const a = $('.toc a.active');
+      if (!a) return;
+      marker.style.top = `${a.offsetTop}px`;
+      marker.style.height = `${a.offsetHeight}px`;
+      marker.style.opacity = 1;
+    };
+    new MutationObserver(move).observe(list, { subtree: true, attributes: true, attributeFilter: ['class'] });
+  }
 }
 
 // CTA glow follows the cursor

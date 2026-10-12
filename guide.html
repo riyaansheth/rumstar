@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="style.css">
 <script>try { if (localStorage.getItem('theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}</script>
 </head>
-<body class="">
+<body class="guide-page">
 
 <a class="skip" href="#main">Skip to content</a>
 <header class="top wrap">
@@ -45,8 +45,25 @@
     <p class="kicker">Payments guide</p>
     <h1 class="page-title">How payment fees and rules actually work.</h1>
     <p class="lede">A plain guide to what you pay, why payments fail and which rules apply in the EU. Read it before you talk to any provider, including us.</p>
+    <div class="stack3d" aria-hidden="true">
+      <div class="stack-shadow"></div>
+      <div class="stack-rot">
+          <div class="lyr neg c" style="--z:0"><span>Extras</span></div>
+          <div class="lyr neg b" style="--z:1"><span>Gateway</span></div>
+          <div class="lyr neg" style="--z:2"><span>Acquirer margin</span></div>
+          <div class="lyr fixed b" style="--z:3"><span>Scheme fees</span></div>
+          <div class="lyr fixed" style="--z:4"><span>Interchange</span></div>
+          <div class="lyr face" style="--z:5">
+            <i class="chip"></i>
+            <svg viewBox="0 0 32 32"><path d="M16 1 C17.5 11 21 14.5 31 16 C21 17.5 17.5 21 16 31 C14.5 21 11 17.5 1 16 C11 14.5 14.5 11 16 1Z"/></svg>
+            <b>•••• •••• •••• 2026</b>
+            <em>One rate on your statement</em>
+          </div>
+      </div>
+    </div>
   </section>
 
+  <div class="read-progress" aria-hidden="true"><i></i></div>
   <section class="doc wrap">
     <aside class="toc" aria-label="Guide contents">
       <p>Contents</p>
