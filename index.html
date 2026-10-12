@@ -12,29 +12,34 @@
 <link rel="stylesheet" href="style.css">
 <script>try { if (localStorage.getItem('theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}</script>
 </head>
-<body>
+<body class="home">
 
+<a class="skip" href="#main">Skip to content</a>
 <header class="top wrap">
-  <a href="#" class="brand" aria-label="Rumstar home">
+  <a href="./" class="brand" aria-label="Rumstar home">
     <svg class="brand-star" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 1 C17.5 11 21 14.5 31 16 C21 17.5 17.5 21 16 31 C14.5 21 11 17.5 1 16 C11 14.5 14.5 11 16 1Z"/></svg>
     Rumstar
   </a>
-  <nav aria-label="Main">
-    <a href="#fees">Fees</a>
-    <a href="#services">Services</a>
-    <a href="#process">Process</a>
-    <a href="#faq">Questions</a>
+  <nav id="site-nav" aria-label="Main">
+    <a href="services.html">Services</a>
+    <a href="how-we-work.html">How we work</a>
+    <a href="industries.html">Industries</a>
+    <a href="guide.html">Payments guide</a>
+    <a href="about.html">About</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html" class="nav-cta">Book a free call</a>
   </nav>
   <div class="top-right">
     <button type="button" class="theme" aria-label="Switch to dark mode">
       <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
       <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
     </button>
-    <a href="#contact" class="pill">Book a call</a>
+    <a href="contact.html" class="pill">Book a call</a>
+    <button type="button" class="menu-btn" aria-controls="site-nav" aria-expanded="false"><span></span><span></span><span class="sr">Menu</span></button>
   </div>
 </header>
 
-<main>
+<main id="main">
   <section class="hero wrap">
     <div class="hero-copy">
       <p class="kicker">Independent payment consultancy, Nicosia</p>
@@ -42,9 +47,9 @@
         <span class="line"><span>Pay less.</span></span>
         <span class="line"><span>Get paid more.</span></span>
       </h1>
-      <p class="lede">We read your processing statements, find the fees you should not be paying and the payments you should not be losing, then fix both. No provider pays us. You do.</p>
+      <p class="lede">We read your processing statements, find the fees you should not be paying and the payments you should not be losing, then fix both. We work for you, not for the providers.</p>
       <div class="actions">
-        <a href="#contact" class="btn">Book a free 15 minute call</a>
+        <a href="contact.html" class="btn">Book a free 15 minute call</a>
         <a href="#fees" class="link">See where your fee goes</a>
       </div>
     </div>
@@ -95,7 +100,7 @@
       </svg>
       <figcaption>
         <span class="dot" aria-hidden="true"></span>
-        <span class="readout" aria-live="off">Card payment, €84.00, routed to lowest cost acquirer</span>
+        <span class="readout" aria-live="off">Card payment routed to the lowest cost acquirer</span>
         <span class="tag">Illustration</span>
       </figcaption>
     </figure>
@@ -110,126 +115,153 @@
 
   <section id="fees" class="fees wrap">
     <div class="split-head">
-      <h2>Where your 1.9% actually goes.</h2>
-      <p>Your provider shows you one blended rate. Underneath it are five different charges. Two are fixed by the card schemes. The other three are a negotiation nobody had on your behalf.</p>
+      <h2>Where your rate actually goes.</h2>
+      <p>Your provider shows you one blended rate. Underneath it are five different charges. Two are set by the card schemes. The other three are a negotiation nobody had on your behalf.</p>
     </div>
 
     <div class="fee-panel">
       <div class="fee-top">
         <div>
-          <div class="fee-total"><span class="num" data-total>1.90</span>%</div>
-          <div class="fee-sub">What a typical business pays on every card payment</div>
+          <div class="fee-total">5</div>
+          <div class="fee-sub">separate charges hidden inside one blended rate</div>
         </div>
+        <a href="guide.html#charges" class="link">How each charge works</a>
       </div>
 
       <div class="bar" aria-hidden="true">
-        <i class="seg fixed" data-v="0.30"></i>
-        <i class="seg fixed b" data-v="0.12"></i>
-        <i class="seg neg" data-v="0.95"></i>
-        <i class="seg neg b" data-v="0.25"></i>
-        <i class="seg neg c" data-v="0.28"></i>
+        <i class="seg fixed" data-v="3"></i>
+        <i class="seg fixed b" data-v="1.4"></i>
+        <i class="seg neg" data-v="8"></i>
+        <i class="seg neg b" data-v="2.6"></i>
+        <i class="seg neg c" data-v="2.8"></i>
       </div>
 
       <ul class="legend">
-        <li class="fixed"><b>Interchange</b><span>0.30%</span><em>Set by card schemes. Passed through.</em></li>
-        <li class="fixed b"><b>Scheme fees</b><span>0.12%</span><em>Set by Visa and Mastercard. Passed through.</em></li>
-        <li class="neg"><b>Acquirer margin</b><span>0.95%</span><em>Your provider's cut. Negotiable.</em></li>
-        <li class="neg b"><b>Gateway</b><span>0.25%</span><em>Often bundled, often overpriced.</em></li>
-        <li class="neg c"><b>Extras</b><span>0.28%</span><em>PCI, authorisation, refund and statement fees.</em></li>
+        <li class="fixed"><b>Interchange</b><span class="ph" title="Placeholder: to be confirmed by Rumstar">[x.xx%]</span><em>Paid to the card issuer. Capped in the EEA for consumer cards.</em></li>
+        <li class="fixed b"><b>Scheme fees</b><span class="ph" title="Placeholder: to be confirmed by Rumstar">[x.xx%]</span><em>Set by Visa and Mastercard. Passed through.</em></li>
+        <li class="neg"><b>Acquirer margin</b><span class="ph" title="Placeholder: to be confirmed by Rumstar">[x.xx%]</span><em>Your provider's cut. Negotiable.</em></li>
+        <li class="neg b"><b>Gateway</b><span class="ph" title="Placeholder: to be confirmed by Rumstar">[x.xx%]</span><em>Often bundled, often overpriced.</em></li>
+        <li class="neg c"><b>Extras</b><span class="ph" title="Placeholder: to be confirmed by Rumstar">[x.xx%]</span><em>PCI, authorisation, refund and statement fees.</em></li>
       </ul>
-      <p class="note">Illustrative example for a European business taking mostly card not present payments. Not a quote. Your numbers come from your statements.</p>
+      <p class="note">Bar proportions are illustrative. Example figures will be added by Rumstar. Your real numbers come from your statements.</p>
     </div>
   </section>
 
   <section id="services" class="services wrap">
     <div class="split-head">
       <h2>What we do for you.</h2>
-      <p>We do not sell processing, software or terminals. We advise, negotiate and oversee, so every recommendation is about what suits you.</p>
+      <p>We do not sell processing, software or terminals. We review, negotiate and oversee, so every recommendation is about what suits you. <a class="link" href="services.html">All services</a></p>
     </div>
 
     <div class="bench">
       <div class="tabs" role="tablist" aria-label="Services">
-        <button role="tab" id="t0" aria-controls="panel" aria-selected="true">Fee audit</button>
+        <button role="tab" id="t0" aria-controls="panel" aria-selected="true">Statement Review</button>
         <button role="tab" id="t1" aria-controls="panel" aria-selected="false" tabindex="-1">Provider selection</button>
         <button role="tab" id="t2" aria-controls="panel" aria-selected="false" tabindex="-1">Approval rates</button>
         <button role="tab" id="t3" aria-controls="panel" aria-selected="false" tabindex="-1">Migration</button>
-        <button role="tab" id="t4" aria-controls="panel" aria-selected="false" tabindex="-1">Compliance and risk</button>
+        <button role="tab" id="t4" aria-controls="panel" aria-selected="false" tabindex="-1">High-risk sectors</button>
       </div>
       <div class="panel" id="panel" role="tabpanel" aria-labelledby="t0" tabindex="0">
         <h3>Every line of your statement, explained.</h3>
-        <p>We take three months of statements and break down every charge: interchange, scheme fees, margin, gateway and the small extras that add up. You get a plain list of what you pay and what you should pay.</p>
-        <ul><li>Statement teardown</li><li>Benchmark against market rates</li><li>Savings figure in writing</li></ul>
+        <p>We take your recent statements and break down every charge: interchange, scheme fees, margin, gateway and the small extras that add up. You get a plain list of what you pay and what you should pay.</p>
+        <ul><li>Statement teardown</li><li>Benchmark against the market</li><li>Findings in writing</li></ul>
       </div>
     </div>
+  </section>
+
+  <section id="industries" class="wrap">
+    <div class="split-head">
+      <h2>Built around how you sell.</h2>
+      <p>A subscription business loses money in different places from a travel agent or a trading platform. We start from your model. <a class="link" href="industries.html">All industries</a></p>
+    </div>
+    <ul class="sector-strip">
+      <li><a href="industries.html#ecommerce"><b>Ecommerce and retail</b><span>Blended pricing, cross-border fees, false declines</span></a></li>
+      <li><a href="industries.html#subscriptions"><b>Subscriptions and SaaS</b><span>Failed renewals and involuntary churn</span></a></li>
+      <li><a href="industries.html#travel"><b>Travel and hospitality</b><span>Chargeback exposure and reserves</span></a></li>
+      <li><a href="industries.html#igaming"><b>iGaming and betting</b><span>Few willing providers, licence checks, payouts</span></a></li>
+      <li><a href="industries.html#trading"><b>Forex and trading</b><span>Deposits, withdrawals and provider appetite</span></a></li>
+      <li><a href="industries.html#marketplaces"><b>Marketplaces and platforms</b><span>Split payments and seller payouts</span></a></li>
+    </ul>
   </section>
 
   <section id="process" class="process wrap">
     <div class="split-head">
       <h2>Four steps. The first is free.</h2>
-      <p>One call is normally enough to tell whether there is money to recover. If there is not, we say so.</p>
+      <p>One call is normally enough to tell whether there is money to recover. If there is not, we say so. <a class="link" href="how-we-work.html">How we work</a></p>
     </div>
     <ol class="steps">
-      <li><span class="n">1</span><h3>Look</h3><p>A short call, then your statements. We come back with a number: what you pay, what you should pay, and the gap.</p></li>
-      <li><span class="n">2</span><h3>Recommend</h3><p>A written plan. Renegotiate with your current provider or move. Options ranked, costs shown.</p></li>
+      <li><span class="n">1</span><h3>Look</h3><p>A short call, then your statements. We come back with what you pay, what you should pay, and the gap.</p></li>
+      <li><span class="n">2</span><h3>Recommend</h3><p>A written plan. Renegotiate with your current provider or move. Options ranked, trade-offs explained.</p></li>
       <li><span class="n">3</span><h3>Deliver</h3><p>We run the negotiation or the switch with the provider. You stay informed, not chasing.</p></li>
-      <li><span class="n">4</span><h3>Keep watching</h3><p>Quarterly statement checks, so rates do not quietly creep back up.</p></li>
+      <li><span class="n">4</span><h3>Keep watching</h3><p>Regular statement checks, so rates do not quietly creep back up.</p></li>
     </ol>
   </section>
 
   <section id="faq" class="faq wrap">
     <div class="split-head">
       <h2>Before you call.</h2>
-      <p>The questions people ask first.</p>
+      <p>The questions people ask first. <a class="link" href="faq.html">All questions</a></p>
     </div>
     <div class="qs">
       <details>
-        <summary>Do you take commission from providers?<i aria-hidden="true"></i></summary>
-        <p>No. We are paid by you and only you. If a provider offered us a referral fee we would turn it down, and tell you they offered.</p>
+        <summary>How are you paid?<i aria-hidden="true"></i></summary>
+        <p><span class="ph" title="Placeholder: to be confirmed by Rumstar">[Rumstar to confirm its fee model]</span> Whatever the arrangement, any commercial relationship with a provider is disclosed before you decide anything.</p>
       </details>
       <details>
-        <summary>How long does a fee review take?<i aria-hidden="true"></i></summary>
-        <p>Usually five to ten working days from receiving your statements. Setups with several providers or currencies take a little longer.</p>
+        <summary>How long does a Statement Review take?<i aria-hidden="true"></i></summary>
+        <p><span class="ph" title="Placeholder: to be confirmed by Rumstar">[X]</span> working days from receiving your statements. Setups with several providers or currencies take a little longer.</p>
       </details>
       <details>
         <summary>What do you need from us?<i aria-hidden="true"></i></summary>
-        <p>Three months of processing statements, your current contract, and half an hour with whoever looks after payments.</p>
-      </details>
-      <details>
-        <summary>What does it cost?<i aria-hidden="true"></i></summary>
-        <p>The first call is free. After that we quote a fixed fee for the review and a separate fixed fee for any negotiation or migration work. No surprises.</p>
+        <p>Your recent processing statements, your current contract, and half an hour with whoever looks after payments. <a class="link" href="how-we-work.html#checklist">Full checklist</a></p>
       </details>
       <details>
         <summary>Will we have to switch providers?<i aria-hidden="true"></i></summary>
         <p>Often not. Renegotiating with the provider you already have is often the better route. We only recommend moving when the numbers clearly justify it.</p>
       </details>
+      <details>
+        <summary>Are you a payment provider?<i aria-hidden="true"></i></summary>
+        <p>No. Rumstar advises only. We do not process payments, hold your money or approve accounts. Contracts are always between you and a licensed provider.</p>
+      </details>
     </div>
   </section>
 
-  <section id="contact" class="wrap">
+  <section class="cta-wrap wrap">
     <div class="cta">
       <svg class="cta-star" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 1 C17.5 11 21 14.5 31 16 C21 17.5 17.5 21 16 31 C14.5 21 11 17.5 1 16 C11 14.5 14.5 11 16 1Z"/></svg>
       <h2>Send us a statement. We will tell you what we see.</h2>
-      <p>Fifteen minutes is usually enough to know whether it is worth going further.</p>
+      <p>A free 15 minute call is usually enough to know whether it is worth going further.</p>
       <div class="actions">
-        <a href="mailto:onboarding@rumstar.eu?subject=Free%2015%20minute%20call" class="btn">Book a free 15 minute call</a>
+        <a href="contact.html" class="btn">Book a free 15 minute call</a>
         <a href="mailto:onboarding@rumstar.eu" class="link">onboarding@rumstar.eu</a>
-        <a href="tel:+35797692104" class="link">+357 97 692104</a>
       </div>
     </div>
   </section>
+
 </main>
 
 <footer class="foot">
  <div class="wrap">
   <div class="foot-grid">
     <div>
-      <a href="#" class="brand" aria-label="Rumstar home">
+      <a href="./" class="brand" aria-label="Rumstar home">
         <svg class="brand-star" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 1 C17.5 11 21 14.5 31 16 C21 17.5 17.5 21 16 31 C14.5 21 11 17.5 1 16 C11 14.5 14.5 11 16 1Z"/></svg>
         Rumstar
       </a>
       <p class="foot-line">Independent payment consultancy.</p>
       <p class="foot-legal">Rumstar provides advisory services only. It is not a payment institution or e-money institution, does not process payments and does not hold client funds.</p>
     </div>
+    <nav class="foot-explore" aria-label="Site">
+      <ul>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="how-we-work.html">How we work</a></li>
+        <li><a href="industries.html">Industries</a></li>
+        <li><a href="guide.html">Payments guide</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
     <address>
       <b>RUMSTAR LIMITED</b>
       84 Larnakos, Pallouriotissa<br>
@@ -249,7 +281,7 @@
       <a href="#">Privacy Policy</a>
       <a href="#">Terms &amp; Conditions</a>
       <a href="#">Cookie Policy</a>
-      <a href="#contact">Contact</a>
+      <a href="contact.html">Contact</a>
     </nav>
   </div>
  </div>
