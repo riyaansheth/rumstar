@@ -620,3 +620,6 @@ nav#site-nav a[aria-current=page] { color: var(--ink); font-weight: 600; }
 .share-note { margin-top: 20px; padding: 18px 22px; border-radius: 16px; border: 1px dashed #e0a52a99; background: #ffc74d14; color: var(--soft); max-width: 80ch; }
 .share-note b { color: var(--ink); }
 .fine a.link { font-size: inherit; }
+/* the decorative footer wordmark must never sit on top of the links */
+.foot-mark { pointer-events: none; position: relative; z-index: 0; }
+.foot .wrap { position: relative; z-index: 1; }
