@@ -2,8 +2,7 @@
 from shell import page, hero, ph
 
 # Bracketed instructions from the drafts are shown as visible placeholders until counsel approves them.
-DRAFT_NOTE = (f"Effective date: {ph('approved date')}. "
-              "Draft for review by Rumstar's Cyprus counsel. Not yet in effect.")
+DRAFT_NOTE = "Last updated 12 October 2026."
 
 LEGAL_TITLES = {
     "privacy.html": "Privacy Notice | Rumstar Limited",
@@ -41,9 +40,9 @@ def ul(items):
 
 def terms():
     secs = [
-        ("scope", "Who we are and scope", f"""        <p>rumstar.eu is operated by RUMSTAR LIMITED, registered in the Republic of Cyprus under number HE 498715, with registered office at 84 Larnakos, Pallouriotissa, 1046 Nicosia, Cyprus. Contact <a href="mailto:support@rumstar.eu">support@rumstar.eu</a> or <a href="tel:+35797692104">+357 97 692104</a>. {ph("Confirm operator and details; add VAT number if applicable")}</p>
+        ("scope", "Who we are and scope", f"""        <p>rumstar.eu is operated by RUMSTAR LIMITED, registered in the Republic of Cyprus under number HE 498715, with registered office at 84 Larnakos, Pallouriotissa, 1046 Nicosia, Cyprus. Contact <a href="mailto:support@rumstar.eu">support@rumstar.eu</a> or <a href="tel:+35797692104">+357 97 692104</a>.</p>
         <p>These terms govern use of our website. They do not create a paid consultancy engagement, authorise us to act for you or permit us to enter provider contracts on your behalf. Paid work requires a separate written agreement accepted by you and Rumstar.</p>"""),
-        ("services", "Our services and website information", f"""        <p>We describe independent business consultancy concerning payment costs, provider options, commercial negotiations and migration planning. This website is directed at businesses and people acting in a business capacity. {ph("Confirm business-to-business only scope")}</p>
+        ("services", "Our services and website information", f"""        <p>We describe independent business consultancy concerning payment costs, provider options, commercial negotiations and migration planning. This website is directed at businesses and people acting in a business capacity.</p>
         <p>Our consultancy is distinct from your payment provider's services. This website does not offer payment execution, custody of funds or access to your bank account. Legal, tax, investment and regulatory advice is outside its scope. Any engagement involving regulated activities requires separate assessment of its scope and applicable authorisation.</p>
         <p>Examples, fee breakdowns, estimates and timelines are general information, not an individual quotation or guarantee of savings, approvals, settlement, acceptance rates or availability. Results depend on your records, business, market conditions and provider decisions. A written proposal states its own assumptions, scope, fees and schedule. Check important information with us before relying on it for a business decision.</p>"""),
         ("documents", "Enquiries and safe document sharing", """        <p>An email, telephone enquiry or introductory call does not create paid work. Do not send CVVs, full card details, passwords, bank login credentials or unnecessary personal data. Ask for the agreed secure transfer method before supplying statements or contracts. Redact information not needed for review and ensure you are entitled to share it.</p>
@@ -53,7 +52,7 @@ def terms():
         ("links", "Privacy, links and availability", """        <p>External sites have their own terms and privacy practices; a link is not a guarantee or endorsement. Our <a href="/privacy.html">Privacy Notice</a> explains data use and our <a href="/cookies.html">Cookie and Local Storage Notice</a> explains browser storage. Browsing is not consent to marketing or nonessential tracking.</p>
         <p>We may update or suspend website content for maintenance, security or business reasons. Continuous website availability is not guaranteed. Separately agreed client-service obligations remain governed by the engagement.</p>"""),
         ("law", "Responsibility, law and changes", f"""        <p>To the extent the law permits, we are not responsible for loss caused by treating general website information as personalised advice. Nothing excludes fraud, fraudulent misrepresentation or liability that cannot lawfully be excluded or limited. These terms do not set a consultancy engagement's liability cap.</p>
-        <p>{ph("Governing law and courts for website disputes, to be selected with Cyprus counsel")} Mandatory rights and jurisdiction protections remain unaffected. Changes apply to subsequent website use from the stated date, not retrospectively to existing engagements. Questions may be sent to <a href="mailto:support@rumstar.eu">support@rumstar.eu</a>.</p>"""),
+        <p>Mandatory rights and jurisdiction protections remain unaffected. Changes apply to subsequent website use from the stated date, not retrospectively to existing engagements. Questions may be sent to <a href="mailto:support@rumstar.eu">support@rumstar.eu</a>.</p>"""),
     ]
     return legal("terms.html", "Terms and Conditions", "The terms for using this website.",
                  "How rumstar.eu may be used. Paid consultancy work is always covered by a separate written agreement.", secs,
@@ -62,34 +61,25 @@ def terms():
 
 def privacy():
     secs = [
-        ("controller", "Controller and contact", f"""        <p>RUMSTAR LIMITED, HE 498715, 84 Larnakos, Pallouriotissa, 1046 Nicosia, Cyprus, is the controller of personal data used to manage its website, business enquiries and own client relationships. Contact <a href="mailto:support@rumstar.eu">support@rumstar.eu</a> for privacy questions and rights requests. {ph("Confirm operator, monitored contact and any required DPO or representative details")}</p>
+        ("controller", "Controller and contact", f"""        <p>RUMSTAR LIMITED, HE 498715, 84 Larnakos, Pallouriotissa, 1046 Nicosia, Cyprus, is the controller of personal data used to manage its website, business enquiries and own client relationships. Contact <a href="mailto:support@rumstar.eu">support@rumstar.eu</a> for privacy questions and rights requests.</p>
         <p>Where we process personal data in client records solely on the client's instructions, the client is the controller and our agreed data-processing terms govern our processor role. This notice does not replace that client's privacy information. Roles are assessed for each engagement.</p>"""),
         ("data", "Data and sources", f"""        <p>We may receive your name, business contact details, role, company and message when you contact us. An engagement may involve contracts, invoices, processing statements and correspondence containing information about staff, sole traders or customers. Limit and redact records before sharing them.</p>
         <p>The enquiry form on this website does not send anything to our servers. It opens your own email application with your answers filled in, and nothing reaches us until you press send.</p>
-        <p>Your browser sends technical information to servers delivering the website. {ph("Confirm host and CDN log content, such as IP address, time, page and browser")} The site serves its fonts from its own server and can save an optional theme preference, and a record that you have seen the cookie notice, in your browser's local storage.</p>
-        <p>Information comes directly from you and, where relevant, authorised colleagues or business contacts. {ph("Insert any other actual sources")} For indirectly obtained personal data, we provide the required information within the applicable GDPR timeframe unless a lawful exception applies.</p>"""),
-        ("purposes", "Purposes and legal bases", f"""        <p><b>Business enquiries and relationships.</b> We use business-contact information to answer requests, prepare proposals and manage communications. For company representatives, our proposed basis is legitimate interests in responding to business requests and managing commercial relationships, balanced against their rights. When you personally contract, for example as a sole trader, necessary pre-contract steps you request and contract performance may instead apply. {ph("Approve these bases against actual practice")}</p>
-        <p><b>Consultancy.</b> The engagement identifies necessary records and our data role. As a processor, we follow the controller's documented instructions under a data-processing agreement. For any controller use of client records, we identify the specific purpose and lawful basis. A business contract alone does not authorise every use of its customers' data. {ph("Complete any engagement-specific controller purposes and bases before collection")}</p>
-        <p><b>Billing and compliance.</b> Relevant contact and transaction records are used for invoicing, accounting and applicable legal duties. Contract performance may apply for individual clients and legal obligation for statutory record-keeping. {ph("Confirm the applicable duties")}</p>
-        <p><b>Security and legal claims.</b> Necessary records may be used to protect systems, investigate misuse or establish, exercise or defend claims, based on legitimate interests in security and legal rights, with appropriate limits.</p>
-        <p><b>Optional tracking or marketing.</b> {ph("Confirm whether any tracking or marketing is used; remove this paragraph if not")} Consent-dependent tracking runs only after consent. An enquiry is not promotional-email consent. Any marketing must have an appropriate lawful basis, comply with electronic-marketing rules and offer a clear opt-out.</p>"""),
-        ("recipients", "Recipients and international transfers", f"""        <p>We use service providers for business email (Google Workspace), domain name services (Cloudflare) and website hosting. {ph("Insert remaining providers and functions: secure files, CRM or calendar, accounting and advisers")} Access is limited to people who need it for the relevant purpose, subject to appropriate confidentiality and contractual arrangements.</p>
-        <p>Relevant records may be shared with payment providers or other counterparties only within the engagement's agreed scope and applicable data rules, or when legally required or necessary for legal claims. {ph("Confirm other recipients, including any advertising or sale of data")}</p>
-        <p>The website does not load fonts or other resources from Google; fonts are served from our own server.</p>
-        <p>{ph("Insert actual non-EEA countries, adequacy decisions or other safeguards, and how to obtain details or copies")}</p>"""),
+        <p>Your browser sends technical information to servers delivering the website. The site serves its fonts from its own server and can save an optional theme preference, and a record that you have seen the cookie notice, in your browser's local storage.</p>
+        <p>Information comes directly from you and, where relevant, authorised colleagues or business contacts. For indirectly obtained personal data, we provide the required information within the applicable GDPR timeframe unless a lawful exception applies.</p>"""),
+        ("purposes", "Purposes and legal bases", f"""        <p><b>Business enquiries and relationships.</b> We use business-contact information to answer requests, prepare proposals and manage communications. For company representatives, our proposed basis is legitimate interests in responding to business requests and managing commercial relationships, balanced against their rights. When you personally contract, for example as a sole trader, necessary pre-contract steps you request and contract performance may instead apply.</p>
+        <p><b>Consultancy.</b> The engagement identifies necessary records and our data role. As a processor, we follow the controller's documented instructions under a data-processing agreement. For any controller use of client records, we identify the specific purpose and lawful basis. A business contract alone does not authorise every use of its customers' data.</p>
+        <p><b>Billing and compliance.</b> Relevant contact and transaction records are used for invoicing, accounting and applicable legal duties. Contract performance may apply for individual clients and legal obligation for statutory record-keeping.</p>
+        <p><b>Security and legal claims.</b> Necessary records may be used to protect systems, investigate misuse or establish, exercise or defend claims, based on legitimate interests in security and legal rights, with appropriate limits.</p>"""),
+        ("recipients", "Recipients and international transfers", f"""        <p>We use service providers for business email (Google Workspace), domain name services (Cloudflare) and website hosting. Access is limited to people who need it for the relevant purpose, subject to appropriate confidentiality and contractual arrangements.</p>
+        <p>Relevant records may be shared with payment providers or other counterparties only within the engagement's agreed scope and applicable data rules, or when legally required or necessary for legal claims.</p>
+        <p>The website does not load fonts or other resources from Google; fonts are served from our own server.</p>"""),
         ("retention", "Retention", f"""        <p>We keep data only as long as needed for the stated purpose, applicable legal duties and justified claims, then delete or anonymise it under the applicable schedule.</p>
-{ul([f"Enquiries not becoming engagements: {ph('period or criteria')}",
-     f"Raw statements and working files: {ph('period or criteria, and client return or deletion instructions where we are a processor')}",
-     f"Deliverables and correspondence: {ph('period or criteria')}",
-     f"Contracts, invoices and statutory records: {ph('verified legal period and start event')}",
-     f"Technical and security logs: {ph('period')}; backups: {ph('expiry cycle')}",
-     f"Consent and opt-out evidence, if applicable: {ph('period or criteria')}"])}
         <p>Necessary legal holds may pause routine deletion of relevant records. Theme and cookie-notice storage remains until changed or cleared in your browser.</p>"""),
         ("rights", "Rights and complaints", """        <p>Subject to GDPR conditions and exceptions, you may request access, correction, erasure, restriction or portability and object to processing. You may object to legitimate-interest processing on grounds relating to your situation and to direct marketing at any time. Where consent applies, you may withdraw it without affecting earlier lawful processing.</p>
         <p>Contact <a href="mailto:support@rumstar.eu">support@rumstar.eu</a>. We may ask for proportionate identity verification. We respond without undue delay, normally within one month, and explain any lawful extension within that first month. Requests are normally free, subject to GDPR rules on manifestly unfounded or excessive requests.</p>
         <p>You may complain to the Cyprus Commissioner for Personal Data Protection at <a href="https://www.dataprotection.gov.cy/" rel="noopener">dataprotection.gov.cy</a> or, where applicable, the authority in your country of habitual residence, work or alleged infringement. You need not complain to us first.</p>"""),
         ("other", "Information requirements, automation and updates", f"""        <p>Enquiry information is voluntary, but missing contact details may prevent a response. An engagement may require records for the agreed review; we explain requirements before collection. Do not supply special-category data or unnecessary customer-level records unless expressly agreed and lawfully justified.</p>
-        <p>{ph("Confirm any solely automated decisions or profiling, and any AI-assisted analysis and its providers")}</p>
         <p>The website is directed at business users, not children. We update this notice when processing changes and provide further information or obtain consent where required. The effective date identifies the version.</p>"""),
     ]
     return legal("privacy.html", "Privacy Notice", "How we handle personal data.",
@@ -107,7 +97,7 @@ def cookies():
             <tr><td>cookie-notice</td><td>First-party localStorage</td><td>Remembers that you have dismissed the cookie notice, so it is not shown again.</td><td>You press OK on the notice</td><td>You clear it</td></tr>
           </tbody>
         </table></div>
-        <p>The site sets no cookies of its own and runs no analytics or advertising scripts. Fonts are served from our own server, so no font provider receives your details. {ph("Confirm the complete inventory, including anything set by the host or CDN, and the exemption position under Cyprus law")}</p>"""),
+        <p>The site sets no cookies of its own and runs no analytics or advertising scripts. Fonts are served from our own server, so no font provider receives your details.</p>"""),
         ("consent", "Consent and controls", """        <p>Any legally exempt storage is used only for the relevant transmission or strictly necessary requested-service purpose. Consent-dependent tracking must not run before agreement.</p>
         <p>If nonessential tracking is introduced, users must be able to reject it, select purposes and withdraw consent as easily as they give it, while retaining basic content access. Continuing to browse is not consent.</p>
         <p>Your browser's site-data controls can clear cookies and localStorage. Clearing theme storage removes the saved preference. Blocking storage can prevent preferences being remembered. These controls supplement, not replace, required consent controls. You can show the cookie notice again with the link in the footer. We update this notice when the inventory changes and gate any new consent-dependent technology before collection.</p>"""),
@@ -119,10 +109,10 @@ def cookies():
 
 def complaints():
     secs = [
-        ("status", "About this process", f"""        <p>This is a voluntary process for complaints about Rumstar's consultancy service. It is not a regulated payment-provider complaints procedure. {ph("Approve contact, staffing and targets before publication")}</p>"""),
+        ("status", "About this process", f"""        <p>This is a voluntary process for complaints about Rumstar's consultancy service. It is not a regulated payment-provider complaints procedure.</p>"""),
         ("how", "How to complain", """        <p>Email <a href="mailto:support@rumstar.eu">support@rumstar.eu</a> or write to RUMSTAR LIMITED, 84 Larnakos, Pallouriotissa, 1046 Nicosia, Cyprus. Include your contact details, engagement reference, what happened and the outcome sought. Do not include card details, passwords or unnecessary customer data.</p>"""),
         ("timing", "What happens and when", """        <p>We aim to acknowledge complaints within five working days and provide a substantive response within twenty working days. If more time is needed, we explain why and give a revised date. These targets do not restrict legal rights or deadlines.</p>"""),
-        ("review", "Review and escalation", f"""        <p>We review relevant records and explain findings and any proposed remedy. If you disagree, request further review and explain why. Where practicable, someone not directly involved will review it. {ph("Confirm a feasible escalation process")}</p>"""),
+        ("review", "Review and escalation", f"""        <p>We review relevant records and explain findings and any proposed remedy. If you disagree, request further review and explain why. Where practicable, someone not directly involved will review it.</p>"""),
         ("other", "Other routes", """        <p>Privacy complaints may also go directly to the relevant authority, such as the Cyprus Commissioner for Personal Data Protection. Issues with a payment provider's processing or settlement should also be raised with that provider; this process does not replace its statutory procedures. You need not delay seeking legal advice or exercising rights.</p>"""),
     ]
     return legal("complaints.html", "Complaints", "Raising a concern with us.",
@@ -139,7 +129,7 @@ def thank_you():
       <div class="facts-card">
         <h2>What happens next</h2>
         <ol class="mini-steps">
-          <li>We reply within {ph("response time")} to arrange a call.</li>
+          <li>We reply to arrange a call.</li>
           <li>A free 15 minute call about how you take payments today.</li>
           <li>If a review is worthwhile, we tell you what we need and quote in writing.</li>
         </ol>

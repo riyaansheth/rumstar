@@ -19,7 +19,7 @@ def how():
       <li>
         <span class="n">2</span>
         <div><h2>Statement Review</h2>
-        <p>You send your recent statements and contracts. We break down every charge, check your pricing model and benchmark it. Turnaround is {ph("X")} working days from receiving your documents.</p></div>
+        <p>You send your recent statements and contracts. We break down every charge, check your pricing model and benchmark it. We confirm the turnaround as soon as we have your documents.</p></div>
       </li>
       <li>
         <span class="n">3</span>

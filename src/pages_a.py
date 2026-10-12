@@ -50,11 +50,11 @@ def home():
       </div>
 
       <ul class="legend">
-        <li class="fixed"><b>Interchange</b>{ph("x.xx%")}<em>Paid to the card issuer. Capped in the EEA for consumer cards.</em></li>
-        <li class="fixed b"><b>Scheme fees</b>{ph("x.xx%")}<em>Set by Visa and Mastercard. Passed through.</em></li>
-        <li class="neg"><b>Acquirer margin</b>{ph("x.xx%")}<em>Your provider's cut. Negotiable.</em></li>
-        <li class="neg b"><b>Gateway</b>{ph("x.xx%")}<em>Often bundled, often overpriced.</em></li>
-        <li class="neg c"><b>Extras</b>{ph("x.xx%")}<em>PCI, authorisation, refund and statement fees.</em></li>
+        <li class="fixed"><b>Interchange</b><em>Paid to the card issuer. Capped in the EEA for consumer cards.</em></li>
+        <li class="fixed b"><b>Scheme fees</b><em>Set by Visa and Mastercard. Passed through.</em></li>
+        <li class="neg"><b>Acquirer margin</b><em>Your provider's cut. Negotiable.</em></li>
+        <li class="neg b"><b>Gateway</b><em>Often bundled, often overpriced.</em></li>
+        <li class="neg c"><b>Extras</b><em>PCI, authorisation, refund and statement fees.</em></li>
       </ul>
       <p class="note">Bar proportions are illustrative. Example figures will be added by Rumstar. Your real numbers come from your statements.</p>
     </div>
@@ -118,11 +118,11 @@ def home():
     <div class="qs">
       <details>
         <summary>How are you paid?<i aria-hidden="true"></i></summary>
-        <p>{ph("Rumstar to confirm its fee model")} Whatever the arrangement, any commercial relationship with a provider is disclosed before you decide anything.</p>
+        <p>Every engagement is quoted in writing before any work starts, and any commercial relationship we have with a provider is disclosed before you decide anything.</p>
       </details>
       <details>
         <summary>How long does a Statement Review take?<i aria-hidden="true"></i></summary>
-        <p>{ph("X")} working days from receiving your statements. Setups with several providers or currencies take a little longer.</p>
+        <p>It depends on how many providers and currencies are involved. We confirm a date as soon as we have your statements.</p>
       </details>
       <details>
         <summary>What do you need from us?<i aria-hidden="true"></i></summary>
@@ -267,7 +267,7 @@ def services():
 {chr(10).join(blocks)}
       <div class="callout">
         <h3>How engagements are priced</h3>
-        <p>Every engagement is quoted in writing before any work starts. {ph("Rumstar to confirm its fee structure")}</p>
+        <p>Every engagement is quoted in writing before any work starts.</p>
       </div>
     </div>
   </section>

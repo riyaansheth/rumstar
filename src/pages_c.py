@@ -11,7 +11,7 @@ def about():
         <p>Payment providers know their pricing far better than the businesses they charge. Statements are long, fees are split across dozens of lines, and contracts renew quietly. Most businesses never have anyone on their side read them.</p>
         <p>That is our job. We read the statements, compare the market, negotiate the terms and oversee the work, then keep checking so the gains last.</p>
         <h2>How we stay on your side</h2>
-        <p>We recommend what suits your business. Any commercial relationship we have with a provider is disclosed to you before you decide anything. {ph("Rumstar to confirm its fee model and any provider relationships")}</p>
+        <p>We recommend what suits your business. Any commercial relationship we have with a provider is disclosed to you before you decide anything.</p>
         <h2>What we are not</h2>
         <ul class="dashes">
           <li>We are not a payment institution or e-money institution.</li>
@@ -27,7 +27,6 @@ def about():
           <div>
             <h3>Michalis Vassiliou</h3>
             <p class="role">Director</p>
-            <p>{ph("Short biography and payments background")}</p>
           </div>
         </div>
         <div class="facts-card">
@@ -65,10 +64,10 @@ def about():
 
 FAQ = [
     ("Working with us", [
-        ("How are you paid?", f"{ph('Rumstar to confirm its fee model')} Every engagement is quoted in writing before any work starts."),
-        ("Do you take commission from providers?", f"{ph('Rumstar to confirm')} Whatever the arrangement, any commercial relationship with a provider is disclosed before you decide anything."),
+        ("How are you paid?", f"Every engagement is quoted in writing before any work starts."),
+        ("Do you take commission from providers?", f"Any commercial relationship we have with a provider is disclosed to you in writing before you decide anything."),
         ("What does the first call cost?", "Nothing. It takes about fifteen minutes and tells you whether a review is worth doing."),
-        ("How long does a Statement Review take?", f"{ph('X')} working days from receiving your documents. Setups with several providers or currencies take a little longer."),
+        ("How long does a Statement Review take?", "It depends on how many providers and currencies are involved. We confirm a date as soon as we have your documents."),
         ("What do you need from us?", 'Your recent processing statements, current contracts and pricing schedules, and half an hour with whoever looks after payments. <a class="link" href="how-we-work.html#checklist">See the full checklist</a>.'),
         ("Is our information kept confidential?", "Yes. Your statements and contracts are used only for your engagement, and we sign a confidentiality agreement on request."),
         ("Will we have to switch providers?", "Often not. Renegotiating with your current provider is frequently the better route. We only recommend moving when the gain clearly outweighs the disruption."),
@@ -183,7 +182,7 @@ def contact():
       <div class="facts-card">
         <h3>What happens next</h3>
         <ol class="mini-steps">
-          <li>We reply within {ph("response time")} to arrange a call.</li>
+          <li>We reply to arrange a call.</li>
           <li>A free 15 minute call about how you take payments today.</li>
           <li>If a review is worthwhile, we tell you what we need and quote in writing.</li>
         </ol>
