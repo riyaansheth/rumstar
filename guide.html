@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Payments guide | Rumstar</title>
+<meta name="description" content="A plain guide to card payment fees, interchange caps, surcharging, strong customer authentication, declines, chargebacks and payment regulation in the EU and Cyprus.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 1 C17.5 11 21 14.5 31 16 C21 17.5 17.5 21 16 31 C14.5 21 11 17.5 1 16 C11 14.5 14.5 11 16 1Z' fill='%23ffc74d'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400;500;600;700&family=Funnel+Sans:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>try { if (localStorage.getItem('theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}</script>
+</head>
+<body class="guide-page">
+
+<a class="skip" href="#main">Skip to content</a>
+<header class="top wrap">
+  <a href="./" class="brand" aria-label="Rumstar home">
+    <svg class="brand-star" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 1 C17.5 11 21 14.5 31 16 C21 17.5 17.5 21 16 31 C14.5 21 11 17.5 1 16 C11 14.5 14.5 11 16 1Z"/></svg>
+    Rumstar
+  </a>
+  <nav id="site-nav" aria-label="Main">
+    <a href="services.html">Services</a>
+    <a href="how-we-work.html">How we work</a>
+    <a href="industries.html">Industries</a>
+    <a href="guide.html" aria-current="page">Payments guide</a>
+    <a href="about.html">About</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html" class="nav-cta">Book a free call</a>
+  </nav>
+  <div class="top-right">
+    <button type="button" class="theme" aria-label="Switch to dark mode">
+      <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+      <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
+    </button>
+    <a href="contact.html" class="pill">Book a call</a>
+    <button type="button" class="menu-btn" aria-controls="site-nav" aria-expanded="false"><span></span><span></span><span class="sr">Menu</span></button>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-hero wrap">
+    <svg class="page-star" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 1 C17.5 11 21 14.5 31 16 C21 17.5 17.5 21 16 31 C14.5 21 11 17.5 1 16 C11 14.5 14.5 11 16 1Z"/></svg>
+    <p class="kicker">Payments guide</p>
+    <h1 class="page-title">How payment fees and rules actually work.</h1>
+    <p class="lede">A plain guide to what you pay, why payments fail and which rules apply in the EU. Read it before you talk to any provider, including us.</p>
+    <div class="stack3d" aria-hidden="true">
+      <div class="stack-shadow"></div>
+      <div class="stack-rot">
+          <div class="lyr neg c" style="--z:0"><span>Extras</span></div>
+          <div class="lyr neg b" style="--z:1"><span>Gateway</span></div>
+          <div class="lyr neg" style="--z:2"><span>Acquirer margin</span></div>
+          <div class="lyr fixed b" style="--z:3"><span>Scheme fees</span></div>
+          <div class="lyr fixed" style="--z:4"><span>Interchange</span></div>
+          <div class="lyr face" style="--z:5">
+            <i class="chip"></i>
+            <svg viewBox="0 0 32 32"><path d="M16 1 C17.5 11 21 14.5 31 16 C21 17.5 17.5 21 16 31 C14.5 21 11 17.5 1 16 C11 14.5 14.5 11 16 1Z"/></svg>
+            <b>•••• •••• •••• 2026</b>
+            <em>One rate on your statement</em>
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="read-progress" aria-hidden="true"><i></i></div>
+  <section class="doc wrap">
+    <aside class="toc" aria-label="Guide contents">
+      <p>Contents</p>
+      <ol>
+        <li><a href="#charges">What you actually pay</a></li>
+        <li><a href="#pricing-models">Blended or itemised pricing</a></li>
+        <li><a href="#caps">Interchange caps in the EEA</a></li>
+        <li><a href="#surcharging">Surcharging</a></li>
+        <li><a href="#sca">Strong customer authentication and 3D Secure</a></li>
+        <li><a href="#declines">Approval rates and declines</a></li>
+        <li><a href="#chargebacks">Chargebacks and reserves</a></li>
+        <li><a href="#regulated">Who is regulated, and who is not</a></li>
+        <li><a href="#changes">What is changing</a></li>
+        <li><a href="#glossary">Glossary</a></li>
+      </ol>
+    </aside>
+    <div class="doc-body prose">
+      <section class="g-sec" id="charges">
+        <h2>What you actually pay</h2>
+      <p>Every card payment carries several charges, usually rolled into one rate on your statement.</p>
+      <dl class="terms">
+        <div><dt>Interchange</dt><dd>Paid by your acquirer to the bank that issued the customer's card. Set by the card schemes and, in the EEA, capped for most consumer cards.</dd></div>
+        <div><dt>Scheme fees</dt><dd>Charged by Visa, Mastercard and others for using their networks. Many separate line items, often updated. Not capped.</dd></div>
+        <div><dt>Acquirer margin</dt><dd>What your acquirer keeps for processing and settling your payments. This is where most negotiation happens.</dd></div>
+        <div><dt>Gateway fees</dt><dd>For the technology that connects your checkout to the acquirer. Sometimes bundled, sometimes charged per transaction.</dd></div>
+        <div><dt>Extras</dt><dd>Authorisation fees, refund fees, chargeback fees, PCI fees, statement fees, currency conversion and minimum monthly charges.</dd></div>
+      </dl>
+      </section>
+      <section class="g-sec" id="pricing-models">
+        <h2>Blended or itemised pricing</h2>
+      <p>On <b>blended</b> pricing you pay one rate whatever the card. It is simple, but you cannot see how much is margin. On <b>itemised</b> pricing, often called interchange plus plus, interchange and scheme fees are passed through at cost and the provider adds a visible margin.</p>
+      <p>In the EEA, the Interchange Fee Regulation (Regulation (EU) 2015/751, Article 9) requires acquirers to show merchant service charges separately for each card category and brand, unless you ask in writing for blended pricing. If your statement does not itemise charges, you can ask for it to.</p>
+      </section>
+      <section class="g-sec" id="caps">
+        <h2>Interchange caps in the EEA</h2>
+      <p>For consumer cards issued and used in the EEA, interchange is capped at 0.2% of the transaction for debit cards and 0.3% for credit cards (Regulation (EU) 2015/751, Articles 3 and 4).</p>
+      <p>Cards issued outside the EEA are covered by separate commitments Visa and Mastercard gave the European Commission in 2019, with higher caps for online payments.</p>
+      <p>Not capped: commercial and business cards, scheme fees, acquirer margin and gateway fees. Three party schemes such as American Express are treated differently. This is why two businesses with the same headline rate can be paying very different real costs.</p>
+      </section>
+      <section class="g-sec" id="surcharging">
+        <h2>Surcharging</h2>
+      <p>Under PSD2 (Directive (EU) 2015/2366, Article 62), you cannot add a surcharge for consumer cards covered by the interchange caps, or for SEPA transfers and direct debits. Where a surcharge is allowed, it cannot exceed your direct cost. Rules can vary between countries, so check before you add one.</p>
+      </section>
+      <section class="g-sec" id="sca">
+        <h2>Strong customer authentication and 3D Secure</h2>
+      <p>PSD2 requires strong customer authentication for most online card payments in the EEA, usually through 3D Secure. Exemptions exist for low value payments, low risk transactions assessed by your provider, and merchant initiated payments such as subscriptions after the first one. Payments where the card or the acquirer is outside the EEA are handled differently.</p>
+      <p>Applying exemptions well reduces friction at checkout. Applying them badly increases declines and fraud.</p>
+      </section>
+      <section class="g-sec" id="declines">
+        <h2>Approval rates and declines</h2>
+      <p>Some declines are final, such as a stolen card. Many are not: an expired card, a temporary bank decision, an authentication problem or a fraud rule that was too strict. These are often called false declines, and they turn good customers away.</p>
+      <p>Common fixes include retrying at the right moment and in line with scheme rules, network tokens and account updater services that keep stored cards current, better authentication settings, and routing payments to a local acquirer.</p>
+      </section>
+      <section class="g-sec" id="chargebacks">
+        <h2>Chargebacks and reserves</h2>
+      <p>A chargeback is a payment reversed by the customer's bank, usually after a dispute. You can contest it with evidence. The card schemes run monitoring programmes, and businesses whose dispute or fraud levels stay too high face fines and can lose their account.</p>
+      <p>A rolling reserve is a share of your takings that a provider holds back for a period, to cover future chargebacks. It is common in higher risk sectors and is negotiable, so read the terms before you sign.</p>
+      </section>
+      <section class="g-sec" id="regulated">
+        <h2>Who is regulated, and who is not</h2>
+      <p>In Cyprus, payment institutions and e-money institutions are authorised and supervised by the Central Bank of Cyprus, under the laws that bring PSD2 into Cypriot law. The Central Bank keeps public registers of authorised firms, and you should check any provider you deal with against them.</p>
+      <p>Advisers such as Rumstar are a different thing. We do not process payments, hold funds or act for a provider in the payment flow. Your contract is always with a licensed provider.</p>
+      </section>
+      <section class="g-sec" id="changes">
+        <h2>What is changing</h2>
+      <p>The EU has agreed a new payments package: a revised directive, known as PSD3, and a new Payment Services Regulation. It is expected to apply from around late 2027, with transition periods for licensing. Expected changes include checks that a payee's name matches their account, more protection against fraud for consumers, and e-money institutions being brought into the payment institution regime.</p>
+      <p>Dates and details may still change before the rules apply.</p>
+      </section>
+      <section class="g-sec" id="glossary">
+        <h2>Glossary</h2>
+        <dl class="terms glossary">
+        <div><dt>Acquirer</dt><dd>The provider that processes card payments for a business and pays the money into its account.</dd></div>
+        <div><dt>Issuer</dt><dd>The bank or provider that issued the customer's card.</dd></div>
+        <div><dt>Payment service provider (PSP)</dt><dd>A company offering payment processing to businesses, often combining acquiring, a gateway and other services.</dd></div>
+        <div><dt>Gateway</dt><dd>The technology that passes payment details from your checkout to the acquirer.</dd></div>
+        <div><dt>Orchestration</dt><dd>A layer that connects several providers and decides where each payment is sent.</dd></div>
+        <div><dt>Interchange plus plus (IC++)</dt><dd>Pricing where interchange and scheme fees are passed through at cost, plus a stated provider margin.</dd></div>
+        <div><dt>MCC</dt><dd>Merchant category code. A four digit code that tells the card schemes what kind of business you are.</dd></div>
+        <div><dt>MID</dt><dd>Merchant ID. The identifier for your account with an acquirer.</dd></div>
+        <div><dt>BIN</dt><dd>The first digits of a card number. They identify the issuer, card type and country.</dd></div>
+        <div><dt>3D Secure</dt><dd>The card schemes' system for authenticating online payments, used to meet strong customer authentication rules.</dd></div>
+        <div><dt>Tokenisation</dt><dd>Replacing card details with a token, so stored cards are safer and can be kept up to date.</dd></div>
+        <div><dt>Account updater</dt><dd>A service that refreshes stored card details when a card is replaced or expires.</dd></div>
+        <div><dt>Rolling reserve</dt><dd>A share of your takings held back by a provider for a period to cover future chargebacks.</dd></div>
+        <div><dt>PCI DSS</dt><dd>The card industry's security standard for any business that handles card data.</dd></div>
+        <div><dt>APM</dt><dd>Alternative payment method. Anything other than a card, such as wallets, bank payments or buy now pay later.</dd></div>
+        <div><dt>Settlement</dt><dd>When the money from your sales is actually paid into your bank account.</dd></div>
+        </dl>
+      </section>
+      <p class="fine">General information about payments in the EU, last reviewed October 2026. It is not legal advice. Rules change and their application depends on your circumstances.</p>
+    </div>
+  </section>
+
+  <section class="cta-wrap wrap">
+    <div class="cta">
+      <svg class="cta-star" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 1 C17.5 11 21 14.5 31 16 C21 17.5 17.5 21 16 31 C14.5 21 11 17.5 1 16 C11 14.5 14.5 11 16 1Z"/></svg>
+      <h2>Want to know what this means for you?</h2>
+      <p>Send us your statements and we will show you where your money goes.</p>
+      <div class="actions">
+        <a href="contact.html" class="btn">Book a free 15 minute call</a>
+        <a href="mailto:onboarding@rumstar.eu" class="link">onboarding@rumstar.eu</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+ <div class="wrap">
+  <div class="foot-grid">
+    <div>
+      <a href="./" class="brand" aria-label="Rumstar home">
+        <svg class="brand-star" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 1 C17.5 11 21 14.5 31 16 C21 17.5 17.5 21 16 31 C14.5 21 11 17.5 1 16 C11 14.5 14.5 11 16 1Z"/></svg>
+        Rumstar
+      </a>
+      <p class="foot-line">Independent payment consultancy.</p>
+      <p class="foot-legal">Rumstar provides advisory services only. It is not a payment institution or e-money institution, does not process payments and does not hold client funds.</p>
+    </div>
+    <nav class="foot-explore" aria-label="Site">
+      <ul>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="how-we-work.html">How we work</a></li>
+        <li><a href="industries.html">Industries</a></li>
+        <li><a href="guide.html">Payments guide</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <address>
+      <b>RUMSTAR LIMITED</b>
+      84 Larnakos, Pallouriotissa<br>
+      1046 Nicosia, Cyprus
+    </address>
+    <dl>
+      <div><dt>Company Registration No.</dt><dd>HE 498715</dd></div>
+      <div><dt>Registered in</dt><dd>Republic of Cyprus</dd></div>
+      <div><dt>Tel</dt><dd><a href="tel:+35797692104">+357 97 692104</a></dd></div>
+      <div><dt>Email</dt><dd><a href="mailto:support@rumstar.eu">support@rumstar.eu</a></dd></div>
+    </dl>
+  </div>
+  <div class="foot-bottom">
+    <span>&copy; 2026 RUMSTAR LIMITED. All rights reserved.</span>
+    <!-- TODO: policy pages do not exist yet. Point these at the real pages once the legal text is written. -->
+    <nav aria-label="Legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms &amp; Conditions</a>
+      <a href="#">Cookie Policy</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+ </div>
+ <div class="foot-mark" aria-hidden="true">Rumstar</div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
