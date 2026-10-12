@@ -3,6 +3,15 @@ document.documentElement.classList.add('js');
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
+// Navigation: highlight every link that points at the current page (header, menu, button, footer).
+// Matches on the page name so it works with or without ".html" (Netlify serves both).
+const pageName = (path) => (path.replace(/\/+$/, '').split('/').pop() || 'index').replace(/\.html$/, '');
+const here = pageName(location.pathname);
+$$('#site-nav a, .top .pill, .foot-explore a').forEach(a => {
+  if (pageName(new URL(a.href).pathname) === here) a.setAttribute('aria-current', 'page');
+  else a.removeAttribute('aria-current');
+});
+
 // Mobile menu
 const menuBtn = $('.menu-btn');
 const siteNav = $('#site-nav');

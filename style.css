@@ -558,3 +558,11 @@ button.btn { border: 0; cursor: pointer; font-family: var(--sans); }
 .sector:hover h2 { transform: none; }
 .guide-page .doc { overflow-x: clip; }
 @media (max-width: 999px) { .stack3d { margin-top: 96px; height: 380px; } }
+
+/* current page, everywhere the nav appears */
+nav#site-nav a[aria-current=page] { color: var(--ink); font-weight: 600; }
+.top .pill[aria-current=page] { background: var(--gold); border-color: var(--gold); color: var(--on-gold); }
+@media (max-width: 1099px) {
+  nav#site-nav.open a[aria-current=page] { color: var(--gold-text); padding-left: 14px; box-shadow: inset 3px 0 0 var(--gold); }
+}
+.foot-explore a[aria-current=page] { font-weight: 600; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1.5px; }
