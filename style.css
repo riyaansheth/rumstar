@@ -777,3 +777,50 @@ details.opening p { animation: fade .26s var(--ease-out); }
   .router.routing .pulses { opacity: 1; }
   .tx { display: none; }
 }
+
+/* ==========================================================================
+   3D layer. Pure CSS 3D (no WebGL): the card is the same layered stack
+   used on the guide, so it doubles as the fee explainer.
+   ========================================================================== */
+
+/* home: payment card in the fee panel. Scroll turns it to show its depth,
+   the pointer tilts it, picking a charge separates the layers. */
+.fee-top { align-items: center; }
+.card3d { --sx: 52deg; --sz: -30deg; --tx: 0deg; --ty: 0deg; position: relative; width: 340px; height: 230px; perspective: 1200px; flex: none; margin-inline: auto; pointer-events: none; }
+.card-float { position: absolute; inset: 0; transform-style: preserve-3d; animation: card-float 7s ease-in-out infinite; }
+@keyframes card-float { 50% { transform: translateY(-6px); } }
+.card-rot { --gap: 6px; position: absolute; inset: 0; transform-style: preserve-3d; transform: translateY(calc(var(--gap) * 2)) rotateX(calc(var(--sx) + var(--ty))) rotateZ(calc(var(--sz) + var(--tx))); transition: --gap .6s var(--ease-out), transform .5s var(--ease-out); }
+.card3d.picking .card-rot { --gap: 24px; }
+.card3d .lyr { box-shadow: 0 1px 0 #ffffff40 inset, 0 6px 14px -8px #0c102040; }
+.card3d .lyr.face { box-shadow: 0 1px 0 #ffffff26 inset, 0 24px 40px -18px #0c102080; }
+.card3d .lyr span { opacity: 0; transition: opacity .3s var(--ease); }
+.card3d.picking .lyr span { opacity: 1; }
+.card3d.picking .lyr:not(.face) { opacity: .4; }
+.card3d.picking .lyr.face { opacity: .12; }
+.card3d.picking .lyr.on { opacity: 1; transform: translateZ(calc(var(--z) * var(--gap) + 20px)); box-shadow: 0 0 0 2px #fff, 0 18px 40px -12px #0c102080; }
+.card3d .lyr.face::before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: radial-gradient(160px circle at var(--hx, 30%) var(--hy, 20%), #ffffff1f, transparent 70%); }
+.card-shadow { position: absolute; left: 50%; top: 62%; width: 260px; height: 70px; margin-left: -130px; border-radius: 50%; background: radial-gradient(closest-side, #0c102030, transparent); filter: blur(10px); transition: transform .6s var(--ease-out); }
+[data-theme=dark] .card-shadow { background: radial-gradient(closest-side, #000000a0, transparent); }
+.card3d.picking .card-shadow { transform: scale(1.12); }
+.card3d.off .card-float, .card3d.off .lyr.face::after { animation-play-state: paused; }
+@media (max-width: 999px) { .card3d { width: min(300px, 100%); height: 210px; order: 3; } .fee-top { justify-content: space-between; } }
+
+/* routing illustration: a little depth that follows the pointer */
+.hero { perspective: 1400px; }
+.router { transition: transform .5s var(--ease-out), box-shadow .5s var(--ease-out); transform-origin: 50% 50%; }
+.router.tilting { box-shadow: 0 40px 80px -40px #0c102040; }
+
+/* process: steps sit back in depth until they are reached */
+.steps, .timeline { perspective: 1100px; }
+.js [data-progress] li { transform: rotateX(16deg) translateY(14px); transform-origin: 50% 0; transition: opacity .5s var(--ease), transform .7s var(--ease-out); }
+.js [data-progress] li.on { transform: none; }
+
+/* guide: the layers themselves can be hovered or tapped */
+.stack3d .lyr:not(.face) { pointer-events: auto; cursor: pointer; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-progress] li { transform: none; }
+  .router { transform: none !important; }
+}
+/* hover picks without lifting, so the layer never slides out from under the pointer */
+.stack3d.by-hover.picking .lyr.on { transform: translateZ(calc(var(--z) * var(--gap))); }

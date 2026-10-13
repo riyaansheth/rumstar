@@ -38,6 +38,24 @@ def home():
           <div class="fee-total">5</div>
           <div class="fee-sub">separate charges hidden inside one blended rate</div>
         </div>
+        <div class="card3d" aria-hidden="true">
+          <div class="card-shadow"></div>
+          <div class="card-float">
+            <div class="card-rot">
+              <div class="lyr neg c" data-k="4" style="--z:0"><span>Extras</span></div>
+              <div class="lyr neg b" data-k="3" style="--z:1"><span>Gateway</span></div>
+              <div class="lyr neg" data-k="2" style="--z:2"><span>Acquirer margin</span></div>
+              <div class="lyr fixed b" data-k="1" style="--z:3"><span>Scheme fees</span></div>
+              <div class="lyr fixed" data-k="0" style="--z:4"><span>Interchange</span></div>
+              <div class="lyr face" style="--z:5">
+                <i class="chip"></i>
+                <svg viewBox="0 0 32 32">{STAR}</svg>
+                <b>•••• •••• •••• 2026</b>
+                <em>One rate on your statement</em>
+              </div>
+            </div>
+          </div>
+        </div>
         <a href="guide.html#charges" class="link">How each charge works</a>
       </div>
 

@@ -51,6 +51,15 @@ if (router && readout) {
     setTimeout(() => { readout.textContent = text; readout.classList.remove('swap'); }, 300);
   };
   const tick = () => { show(ri); ri = (ri + 1) % routes.length; };
+  if (!reduced && matchMedia('(hover: hover)').matches) {
+    router.addEventListener('pointermove', (e) => {
+      const r = router.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+      router.classList.add('tilting');
+      router.style.transform = `rotateY(${x * 7}deg) rotateX(${-y * 5}deg)`;
+    });
+    router.addEventListener('pointerleave', () => { router.classList.remove('tilting'); router.style.transform = ''; });
+  }
   if (reduced) show(0);
   else new IntersectionObserver(([e]) => {
     clearInterval(timer); timer = null;
@@ -61,7 +70,40 @@ if (router && readout) {
 // Fee bar: segments grow in once, then hover, focus or tap a charge to pick it out
 const fee = $('.fee-panel');
 if (fee) {
-  const segs = $$('.seg', fee), items = $$('.legend li', fee), tip = $('.fee-tip', fee);
+  const segs = $$('.seg', fee), items = $$('.legend li', fee), tip = $('.fee-tip', fee), card = $('.card3d', fee);
+  if (card) {
+    // Scroll turns the card from face-on to an angle that shows its layers; the pointer adds a small tilt.
+    const rot = $('.card-rot', card);
+    let queued = false;
+    const turn = () => {
+      queued = false;
+      const r = card.getBoundingClientRect();
+      const t = reduced ? 1 : Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight * 0.75)));
+      card.style.setProperty('--sx', `${10 + 42 * t}deg`);
+      card.style.setProperty('--sz', `${-30 * t}deg`);
+      if (!card.classList.contains('picking')) rot.style.setProperty('--gap', `${6 * t}px`);
+      else rot.style.removeProperty('--gap');
+    };
+    const queue = () => { if (!queued) { queued = true; requestAnimationFrame(turn); } };
+    new IntersectionObserver(([e]) => {
+      card.classList.toggle('off', !e.isIntersecting);
+      if (e.isIntersecting) addEventListener('scroll', queue, { passive: true });
+      else removeEventListener('scroll', queue);
+    }).observe(card);
+    turn();
+    new MutationObserver(turn).observe(card, { attributes: true, attributeFilter: ['class'] });
+    if (!reduced && matchMedia('(hover: hover)').matches) {
+      fee.addEventListener('pointermove', (e) => {
+        const r = fee.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.setProperty('--tx', `${x * 14}deg`);
+        card.style.setProperty('--ty', `${-y * 10}deg`);
+        card.style.setProperty('--hx', `${(x + 0.5) * 100}%`);
+        card.style.setProperty('--hy', `${(y + 0.5) * 100}%`);
+      });
+      fee.addEventListener('pointerleave', () => { card.style.setProperty('--tx', '0deg'); card.style.setProperty('--ty', '0deg'); });
+    }
+  }
   segs.forEach((s, i) => s.style.setProperty('--k', i));
   new IntersectionObserver(([e], obs) => {
     if (!e.isIntersecting) return;
@@ -74,6 +116,8 @@ if (fee) {
     picked = k;
     fee.classList.toggle('picking', k !== null);
     segs.forEach(s => s.classList.toggle('on', s.dataset.k === k));
+    card?.classList.toggle('picking', k !== null);
+    if (card) $$('.lyr', card).forEach(l => l.classList.toggle('on', l.dataset.k === k));
     items.forEach(li => li.classList.toggle('on', li.dataset.k === k));
     if (k === null) return;
     const seg = segs[k];
@@ -83,7 +127,9 @@ if (fee) {
   [...segs, ...items].forEach(el => {
     el.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') pick(el.dataset.k); });
     el.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') pick(null); });
-    el.addEventListener('click', () => pick(picked === el.dataset.k ? null : el.dataset.k));
+    // a mouse already picked on hover, so its click keeps the pick; a tap toggles
+    el.addEventListener('pointerdown', (e) => { el.dataset.pt = e.pointerType; });
+    el.addEventListener('click', () => pick(el.dataset.pt === 'mouse' || picked !== el.dataset.k ? el.dataset.k : null));
   });
   items.forEach(li => {
     li.addEventListener('focus', () => pick(li.dataset.k));
@@ -264,7 +310,12 @@ if (document.body.classList.contains('guide-page')) {
       cap.classList.add('swap');
       setTimeout(() => { cap.textContent = k ? text[k] : idle; cap.classList.remove('swap'); }, reduced ? 0 : 150);
     };
-    keys.forEach(b => b.addEventListener('click', () => pick(picked === b.dataset.k ? null : b.dataset.k)));
+    keys.forEach(b => b.addEventListener('click', () => { stack.classList.remove('by-hover'); pick(picked === b.dataset.k ? null : b.dataset.k); }));
+    $$('.lyr[data-k]', stack).forEach(l => {
+      l.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse' && picked !== l.dataset.k) { stack.classList.add('by-hover'); pick(l.dataset.k); } });
+      l.addEventListener('click', () => { stack.classList.remove('by-hover'); pick(picked === l.dataset.k ? null : l.dataset.k); });
+    });
+    $('.stack-rot', stack).addEventListener('pointerleave', () => { if (stack.classList.contains('by-hover')) { stack.classList.remove('by-hover'); pick(null); } });
     rows.forEach(r => {
       r.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') pick(r.dataset.k); });
       r.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') pick(null); });
