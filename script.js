@@ -20,38 +20,105 @@ if (menuBtn && siteNav) {
   menuBtn.addEventListener('click', () => setMenu(menuBtn.getAttribute('aria-expanded') !== 'true'));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
   siteNav.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
+  $$('a', siteNav).forEach((a, i) => a.style.setProperty('--i', i));
 }
 
-// Hero readout: cycles through illustrative routing examples
+// Hero routing: each illustrative example lights its route (input node -> output node)
+// and sends one transaction along it. Runs only while the illustration is on screen.
+const router = $('.router');
 const readout = $('.readout');
-const lines = [
-  'Card payment routed to the lowest cost acquirer',
-  'Apple Pay payment approved first time',
-  'Open banking payment, no card fees applied',
-  'Declined card retried on a backup acquirer, approved',
-  'Subscription renewal, card details updated automatically',
+const routes = [
+  ['Card payment routed to the lowest cost acquirer', 0, 0],
+  ['Apple Pay payment approved first time', 1, 1],
+  ['Open banking payment, no card fees applied', 2, 1],
+  ['Card payment screened for fraud before it reaches the acquirer', 0, 2],
+  ['Declined card retried on a backup acquirer, approved', 0, 0],
+  ['Subscription renewal, card details updated automatically', 0, 1],
 ];
-let li = 0;
-if (readout && !reduced) setInterval(() => {
-  readout.classList.add('swap');
-  setTimeout(() => { li = (li + 1) % lines.length; readout.textContent = lines[li]; readout.classList.remove('swap'); }, 350);
-}, 3200);
+if (router && readout) {
+  const ins = $$('.paths path', router).slice(0, 3), outs = $$('.paths path', router).slice(3);
+  const nodes = $$('.nodes > g', router);
+  const [lineIn, lineOut] = $$('.route-line', router), [txIn, txOut] = $$('.tx', router);
+  let ri = 0, timer = null;
+  const show = (i) => {
+    const [text, a, b] = routes[i];
+    lineIn.setAttribute('d', ins[a].getAttribute('d')); txIn.setAttribute('d', ins[a].getAttribute('d'));
+    lineOut.setAttribute('d', outs[b].getAttribute('d')); txOut.setAttribute('d', outs[b].getAttribute('d'));
+    nodes.forEach((n, j) => n.classList.toggle('hot', j === a || j === 3 + b));
+    router.classList.add('routing');
+    router.classList.remove('fire'); void router.getBoundingClientRect(); router.classList.add('fire');
+    readout.classList.add('swap');
+    setTimeout(() => { readout.textContent = text; readout.classList.remove('swap'); }, 300);
+  };
+  const tick = () => { show(ri); ri = (ri + 1) % routes.length; };
+  if (reduced) show(0);
+  else new IntersectionObserver(([e]) => {
+    clearInterval(timer); timer = null;
+    if (e.isIntersecting) { tick(); timer = setInterval(tick, 3600); }
+  }, { threshold: 0.3 }).observe(router);
+}
 
-// Animate the fee bar and process line once, when scrolled into view
+// Fee bar: segments grow in once, then hover, focus or tap a charge to pick it out
 const fee = $('.fee-panel');
-const steps = $('.steps');
-$$('.steps li').forEach((el, i) => el.style.setProperty('--i', i));
-const io = new IntersectionObserver((entries) => entries.forEach(e => {
-  if (!e.isIntersecting) return;
-  if (e.target === fee) {
-    const segs = $$('.seg', fee);
+if (fee) {
+  const segs = $$('.seg', fee), items = $$('.legend li', fee), tip = $('.fee-tip', fee);
+  segs.forEach((s, i) => s.style.setProperty('--k', i));
+  new IntersectionObserver(([e], obs) => {
+    if (!e.isIntersecting) return;
     const total = segs.reduce((sum, x) => sum + +x.dataset.v, 0);
     segs.forEach(s => s.style.width = (s.dataset.v / total * 100) + '%');
-  } else e.target.classList.add('in');
-  io.unobserve(e.target);
-}), { threshold: 0.35 });
-if (fee) io.observe(fee);
-if (steps) io.observe(steps);
+    obs.disconnect();
+  }, { threshold: 0.35 }).observe(fee);
+  let picked = null;
+  const pick = (k) => {
+    picked = k;
+    fee.classList.toggle('picking', k !== null);
+    segs.forEach(s => s.classList.toggle('on', s.dataset.k === k));
+    items.forEach(li => li.classList.toggle('on', li.dataset.k === k));
+    if (k === null) return;
+    const seg = segs[k];
+    tip.textContent = $('b', items[k]).textContent;
+    tip.style.left = `${seg.offsetLeft + seg.offsetWidth / 2}px`;
+  };
+  [...segs, ...items].forEach(el => {
+    el.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') pick(el.dataset.k); });
+    el.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') pick(null); });
+    el.addEventListener('click', () => pick(picked === el.dataset.k ? null : el.dataset.k));
+  });
+  items.forEach(li => {
+    li.addEventListener('focus', () => pick(li.dataset.k));
+    li.addEventListener('blur', () => pick(null));
+  });
+  document.addEventListener('click', (e) => { if (!fee.contains(e.target)) pick(null); });
+}
+
+// Process lines: fill with scroll position, light each step once it is reached
+const progressLists = $$('[data-progress]');
+if (progressLists.length) {
+  let queued = false;
+  const update = () => {
+    queued = false;
+    const anchor = innerHeight * 0.7;
+    progressLists.forEach(list => {
+      const r = list.getBoundingClientRect(), lis = $$(':scope > li', list), n = lis.length;
+      const horizontal = lis.length > 1 && lis[0].offsetTop === lis[1].offsetTop;
+      const p = reduced ? 1 : Math.min(1, Math.max(0, (anchor - r.top) / r.height));
+      list.style.setProperty('--p', p);
+      let now = -1;
+      lis.forEach((li, i) => {
+        const on = reduced || (horizontal ? p * n > i : li.getBoundingClientRect().top < anchor);
+        li.classList.toggle('on', on);
+        li.style.setProperty('--f', Math.min(1, Math.max(0, p * n - i)));
+        if (on) now = i;
+      });
+      lis.forEach((li, i) => li.classList.toggle('now', i === now && p < 1));
+    });
+  };
+  const queue = () => { if (!queued) { queued = true; requestAnimationFrame(update); } };
+  addEventListener('scroll', queue, { passive: true });
+  addEventListener('resize', queue);
+  update();
+}
 
 // Services tabs (home page)
 const services = [
@@ -63,11 +130,33 @@ const services = [
 ];
 const tabs = $$('[role=tab]');
 const panel = $('#panel');
+const tabInd = $('.tab-ind');
+let current = 0, swapTimer;
+const moveInd = () => {
+  if (!tabInd) return;
+  const t = tabs[current];
+  tabInd.style.transform = `translateY(${t.offsetTop}px)`;
+  tabInd.style.height = `${t.offsetHeight}px`;
+};
+if (tabInd && tabs.length) {
+  tabInd.parentElement.classList.add('has-ind');
+  moveInd();
+  addEventListener('resize', moveInd);
+  document.fonts?.ready.then(moveInd);
+}
 function select(i, focus) {
+  if (i === current && !focus) return;
+  current = i;
   tabs.forEach((t, j) => { t.setAttribute('aria-selected', j === i); t.tabIndex = j === i ? 0 : -1; });
+  moveInd();
   const [h, p, tags] = services[i];
   panel.setAttribute('aria-labelledby', tabs[i].id);
-  panel.innerHTML = `<h3>${h}</h3><p>${p}</p><ul>${tags.map(t => `<li>${t}</li>`).join('')}</ul>`;
+  clearTimeout(swapTimer);
+  panel.classList.add('leaving');
+  swapTimer = setTimeout(() => {
+    panel.innerHTML = `<h3>${h}</h3><p>${p}</p><ul>${tags.map(t => `<li>${t}</li>`).join('')}</ul>`;
+    panel.classList.remove('leaving');
+  }, reduced ? 0 : 140);
   if (focus) tabs[i].focus();
 }
 if (panel) tabs.forEach((t, i) => {
@@ -90,6 +179,24 @@ if (tocLinks.length) {
     byId.get(e.target.id)?.classList.add('active');
   }), { rootMargin: '-20% 0px -70% 0px' });
   byId.forEach((_, id) => { const el = document.getElementById(id); if (el) spy.observe(el); });
+  tocLinks.forEach(a => a.addEventListener('click', () => {
+    tocLinks.forEach(x => x.classList.remove('active'));
+    a.classList.add('active');
+  }));
+  const list = $('.toc ol');
+  const marker = document.createElement('span');
+  marker.className = 'toc-marker';
+  marker.setAttribute('aria-hidden', 'true');
+  list.appendChild(marker);
+  const move = () => {
+    const a = $('.toc a.active');
+    if (!a || !matchMedia('(min-width: 1000px)').matches) { marker.style.opacity = 0; return; }
+    marker.style.top = `${a.offsetTop}px`;
+    marker.style.height = `${a.offsetHeight}px`;
+    marker.style.opacity = 1;
+  };
+  new MutationObserver(move).observe(list, { subtree: true, attributes: true, attributeFilter: ['class'] });
+  addEventListener('resize', move);
 }
 
 // Industry cards: staggered entrance, then a pointer spotlight and gentle tilt
@@ -141,19 +248,27 @@ if (document.body.classList.contains('guide-page')) {
   };
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
-  const list = $('.toc ol');
-  if (list) {
-    const marker = document.createElement('span');
-    marker.className = 'toc-marker';
-    list.appendChild(marker);
-    const move = () => {
-      const a = $('.toc a.active');
-      if (!a) return;
-      marker.style.top = `${a.offsetTop}px`;
-      marker.style.height = `${a.offsetHeight}px`;
-      marker.style.opacity = 1;
+  // Fee layers: the keys under the card and the rows in "What you actually pay" both pick a layer
+  const stack = $('.stack3d'), cap = $('.lyr-cap');
+  if (stack && cap) {
+    const keys = $$('.lyr-key', stack), rows = $$('.terms div[data-k]');
+    const text = Object.fromEntries(rows.map(r => [r.dataset.k, `${$('dt', r).textContent}: ${$('dd', r).textContent}`]));
+    const idle = cap.textContent;
+    let picked = null;
+    const pick = (k) => {
+      picked = k;
+      stack.classList.toggle('picking', k !== null);
+      $$('.lyr', stack).forEach(l => l.classList.toggle('on', l.dataset.k === k));
+      keys.forEach(b => b.setAttribute('aria-pressed', b.dataset.k === k));
+      rows.forEach(r => r.classList.toggle('on', r.dataset.k === k));
+      cap.classList.add('swap');
+      setTimeout(() => { cap.textContent = k ? text[k] : idle; cap.classList.remove('swap'); }, reduced ? 0 : 150);
     };
-    new MutationObserver(move).observe(list, { subtree: true, attributes: true, attributeFilter: ['class'] });
+    keys.forEach(b => b.addEventListener('click', () => pick(picked === b.dataset.k ? null : b.dataset.k)));
+    rows.forEach(r => {
+      r.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') pick(r.dataset.k); });
+      r.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') pick(null); });
+    });
   }
 }
 
@@ -175,13 +290,15 @@ if (form) {
   const err = $('.form-error', form), bar = $('.progress i', form), count = $('.step-count b', form);
   let step = 0;
   const show = (n) => {
+    form.classList.toggle('back', n < step);
     step = n;
     fieldsets.forEach((f, i) => f.hidden = i !== n);
     back.hidden = n === 0;
     next.hidden = n === fieldsets.length - 1;
     submit.hidden = n !== fieldsets.length - 1;
-    bar.style.width = ((n + 1) / fieldsets.length * 100) + '%';
+    bar.style.setProperty('--p', (n + 1) / fieldsets.length);
     count.textContent = n + 1;
+    count.style.animation = 'none'; void count.offsetWidth; count.style.animation = '';
     err.textContent = '';
     $('input, textarea', fieldsets[n])?.focus({ preventScroll: true });
   };
@@ -279,3 +396,35 @@ themeBtn.addEventListener('click', (e) => {
     );
   });
 });
+
+
+// FAQ: animate details open and closed. Native details still works without this.
+$$('details').forEach(d => {
+  const summary = $('summary', d);
+  let anim = null;
+  summary.addEventListener('click', (e) => {
+    if (reduced || !d.animate) return;
+    e.preventDefault();
+    anim?.cancel();
+    const start = d.offsetHeight;
+    const opening = !d.open;
+    if (opening) { d.open = true; d.classList.add('opening'); }
+    const end = opening ? d.scrollHeight : summary.offsetHeight + 1;
+    anim = d.animate({ height: [`${start}px`, `${end}px`] }, { duration: opening ? 280 : 220, easing: 'cubic-bezier(.22,1,.36,1)' });
+    anim.onfinish = () => { if (!opening) d.open = false; d.classList.remove('opening'); anim = null; };
+  });
+});
+
+// Quiet scroll reveals on the main blocks of each page
+if (!reduced) {
+  const blocks = $$('.split-head, .fee-panel, .bench, .sector-strip, .steps, .qs, .cta, .svc, .check-card, .rules, .share-note, .faq-group, .about-grid, .thanks-grid, .flow-head');
+  const rv = new IntersectionObserver((entries) => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); rv.unobserve(e.target); }
+  }), { rootMargin: '0px 0px -8% 0px' });
+  blocks.forEach(b => {
+    // anything already on screen, or scrolled past, shows straight away
+    if (b.getBoundingClientRect().top < innerHeight) return;
+    b.classList.add('rv');
+    rv.observe(b);
+  });
+}

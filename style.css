@@ -623,3 +623,157 @@ nav#site-nav a[aria-current=page] { color: var(--ink); font-weight: 600; }
 /* the decorative footer wordmark must never sit on top of the links */
 .foot-mark { pointer-events: none; position: relative; z-index: 0; }
 .foot .wrap { position: relative; z-index: 1; }
+
+/* ==========================================================================
+   Motion layer. Durations are deliberate: 200-300ms for direct responses,
+   650-900ms for entrances, ~2s for the routing illustration.
+   Everything below is switched off under prefers-reduced-motion.
+   ========================================================================== */
+:root { --ease-out: cubic-bezier(.22, 1, .36, 1); --ease-io: cubic-bezier(.65, 0, .35, 1); }
+
+/* hero: one staggered entrance */
+.hero .kicker { animation: fade .7s var(--ease-out) both; }
+h1 .line > span { animation: rise .85s var(--ease-out) .08s both; }
+h1 .line:nth-child(2) > span { animation-delay: .18s; }
+.hero .lede { animation: fade .75s var(--ease-out) .32s both; }
+.hero .actions { animation: fade .7s var(--ease-out) .44s both; }
+.router { animation: fade .85s var(--ease-out) .5s both; }
+.page-hero .kicker { animation: fade .65s var(--ease-out) both; }
+.page-title { animation: fade .8s var(--ease-out) .08s both; }
+.page-hero .lede { animation: fade .75s var(--ease-out) .2s both; }
+.hero-actions { animation: fade .7s var(--ease-out) .32s both; }
+
+/* routing: the active route lights up and one transaction travels it */
+.paths path { transition: stroke .6s var(--ease), opacity .6s var(--ease); }
+.pulses { transition: opacity .8s var(--ease); }
+.router.routing .pulses { opacity: .25; }
+.route-line { fill: none; stroke: var(--blue); stroke-width: 2; opacity: 0; transition: opacity .6s var(--ease); }
+.route-line.out { stroke: var(--gold-3); }
+.router.routing .route-line { opacity: .55; }
+.tx { fill: none; stroke: var(--blue); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 10 110; stroke-dashoffset: 10; opacity: 0; filter: drop-shadow(0 0 6px var(--blue)); }
+.tx.out { stroke: var(--gold); filter: drop-shadow(0 0 6px var(--gold)); }
+.router.fire .tx.in { animation: tx 1s var(--ease-io) both; }
+.router.fire .tx.out { animation: tx 1s var(--ease-io) .95s both; }
+@keyframes tx { 0% { stroke-dashoffset: 10; opacity: 0; } 12% { opacity: 1; } 88% { opacity: 1; } 100% { stroke-dashoffset: -100; opacity: 0; } }
+.nodes rect { transition: stroke .5s var(--ease), fill .5s var(--ease); }
+.nodes text { transition: fill .5s var(--ease); }
+.nodes g.hot rect { stroke: var(--blue); }
+.nodes g.out.hot rect { stroke: var(--gold-3); fill: #ffc74d1f; }
+.nodes g.hot text { fill: var(--ink); }
+
+/* fee bar: hover, focus or tap a charge to pick it out */
+.bar-wrap { position: relative; }
+.seg { transform-origin: 50% 100%; transition: width .9s var(--ease-out) calc(var(--k, 0) * 70ms), opacity .25s var(--ease), transform .25s var(--ease); cursor: pointer; }
+.fee-panel.picking .seg { opacity: .28; }
+.fee-panel.picking .seg.on { opacity: 1; transform: scaleY(1.08); }
+.legend li { cursor: pointer; transition: background .25s var(--ease); }
+.legend li::before { transition: transform .25s var(--ease); }
+.legend li.on { background: var(--panel-end); }
+.legend li.on::before { transform: scale(1.35); }
+.legend li:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; border-radius: 0; }
+.fee-tip { position: absolute; bottom: calc(100% + 10px); left: 0; z-index: 2; pointer-events: none; white-space: nowrap; font: 500 13px var(--sans); color: var(--bg); background: var(--ink); padding: 6px 10px; border-radius: 8px; opacity: 0; transform: translate(-50%, 4px); transition: opacity .2s var(--ease), transform .25s var(--ease), left .3s var(--ease-out); }
+.fee-tip::after { content: ""; position: absolute; left: 50%; top: 100%; margin-left: -5px; border: 5px solid transparent; border-top-color: var(--ink); }
+.fee-panel.picking .fee-tip { opacity: 1; transform: translate(-50%, 0); }
+
+/* services tabs: one indicator slides between tabs, panel crossfades */
+.tabs { position: relative; }
+.tab-ind { position: absolute; left: 12px; right: 12px; top: 0; height: 0; border-radius: 16px; background: var(--gold); transition: transform .3s var(--ease-out), height .3s var(--ease-out); pointer-events: none; }
+@media (min-width: 900px) { .tab-ind { left: 16px; right: 16px; } }
+.tabs.has-ind [role=tab] { position: relative; z-index: 1; }
+.tabs.has-ind [role=tab][aria-selected=true] { background: none; transition: color .25s var(--ease); }
+.tabs.has-ind [role=tab][aria-selected=true]:hover { background: none; }
+.panel > * { animation: fade .28s var(--ease-out) both; }
+.panel p { animation-delay: .04s; }
+.panel ul { animation-delay: .08s; }
+.panel.leaving > * { animation: none; opacity: 0; transition: opacity .15s var(--ease); }
+
+/* process: the line fills as you scroll and each step lights up when reached */
+.steps li::after { height: 2px; top: 21.5px; background: var(--gold-3); transform: scaleX(var(--f, 0)); transition: transform .2s linear; }
+.steps.in li::after { transform: scaleX(var(--f, 0)); }
+.steps .n, .steps.in .n { transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease); }
+.steps.in .n { background: var(--bg); color: var(--ink); border-color: var(--line-2); }
+.steps li.on .n { background: var(--gold); color: var(--on-gold); border-color: var(--gold); transform: scale(1.06); }
+.steps li, .timeline li { transition: opacity .4s var(--ease); }
+.js [data-progress] li { opacity: .5; }
+.js [data-progress] li.on { opacity: 1; }
+.timeline::before { background: var(--line); }
+.timeline::after { content: ""; position: absolute; left: 20.5px; top: 22px; bottom: 22px; width: 2px; border-radius: 2px; background: linear-gradient(var(--gold), var(--gold-3)); transform-origin: 50% 0; transform: scaleY(var(--p, 0)); transition: transform .2s linear; }
+.timeline .n { background: var(--bg); color: var(--ink); border: 1px solid var(--line-2); transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease); }
+.timeline li.on .n { background: var(--gold); color: var(--on-gold); border-color: var(--gold); }
+.timeline li.now .n { transform: scale(1.1); box-shadow: 0 0 0 6px #ffc74d2e; }
+
+/* sticky contents: a marker slides to the section you are reading */
+.toc-marker { left: -22px; }
+.toc a { transition: color .2s var(--ease), transform .25s var(--ease); }
+.toc a.active { transform: translateX(4px); }
+
+/* guide: pick a layer of the card, by the keys or the charges list */
+.stack-rot { pointer-events: none; }
+.lyr { transition: transform .45s var(--ease-out), opacity .3s var(--ease), box-shadow .3s var(--ease); }
+.stack3d.picking .lyr:not(.face) { opacity: .35; }
+.stack3d.picking .lyr.face { opacity: .15; }
+.stack3d.picking .lyr.on { opacity: 1; transform: translateZ(calc(var(--z) * var(--gap) + 22px)); box-shadow: 0 0 0 2px #fff, 0 18px 40px -12px #0c102080; }
+.stack-ui { position: absolute; left: 0; right: 0; bottom: -64px; display: grid; gap: 10px; justify-items: center; pointer-events: auto; text-align: center; }
+.lyr-keys { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+.lyr-key { font: 500 13px var(--sans); color: var(--soft); background: var(--panel); border: 1px solid var(--line-2); border-radius: 99px; min-height: 36px; padding: 0 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: border-color .2s var(--ease), color .2s var(--ease), background .2s var(--ease); }
+.lyr-key::before { content: ""; width: 8px; height: 8px; border-radius: 3px; background: var(--gold); }
+.lyr-key.fixed::before { background: var(--blue); }
+.lyr-key.fixed.b::before { background: var(--blue-2); }
+.lyr-key.neg.b::before { background: var(--gold-2); }
+.lyr-key.neg.c::before { background: var(--gold-3); }
+.lyr-key:hover, .lyr-key[aria-pressed=true] { border-color: var(--ink); color: var(--ink); }
+.lyr-cap { font-size: 14px; max-width: 46ch; min-height: 3em; color: var(--muted); transition: opacity .25s var(--ease); }
+.lyr-cap.swap { opacity: 0; }
+.guide-page .terms div[data-k] { cursor: pointer; }
+.guide-page .terms div.on { background: var(--hover); }
+.guide-page .terms div.on dt { color: var(--gold-text); }
+@media (min-width: 1000px) { .stack-ui { bottom: -24px; } }
+@media (max-width: 999px) { .stack3d { margin-bottom: 120px; } }
+
+/* contact form: steps slide in the direction you are going */
+.intake fieldset:not([hidden]) { animation: step-in .28s var(--ease-out) both; }
+.intake.back fieldset:not([hidden]) { animation-name: step-back; }
+@keyframes step-in { from { opacity: 0; transform: translateX(24px); } }
+@keyframes step-back { from { opacity: 0; transform: translateX(-24px); } }
+.progress i { width: 100%; transform-origin: 0 50%; transform: scaleX(var(--p, .334)); transition: transform .3s var(--ease-out); }
+.step-count b { display: inline-block; animation: count .25s var(--ease-out); }
+@keyframes count { from { opacity: 0; transform: translateY(6px); } }
+.field.invalid .ferr { animation: fade .22s var(--ease-out); }
+.field input, .field textarea { transition: border-color .22s var(--ease), box-shadow .22s var(--ease); }
+.form-error:not(:empty) { animation: fade .22s var(--ease-out); }
+
+/* faq: smooth open and close, open item stays marked */
+details { overflow: hidden; transition: border-color .25s var(--ease); }
+details[open] { border-bottom-color: var(--line-2); }
+details[open] > summary { color: var(--gold-text); }
+summary i { transition: transform .26s var(--ease-out), background .24s var(--ease), border-color .24s var(--ease), color .24s var(--ease); }
+details[open] p { animation: none; }
+details.opening p { animation: fade .26s var(--ease-out); }
+
+/* global: buttons, mobile menu, quiet reveals, drawn dividers */
+.btn { transition: transform .25s var(--ease), box-shadow .25s var(--ease); }
+.btn:hover { transform: translateY(-1px); box-shadow: 0 10px 24px -12px #b8862a99; }
+.btn:active { transform: scale(.97); box-shadow: none; }
+.btn-ghost { transition: border-color .2s var(--ease), background .2s var(--ease); }
+.btn-ghost:hover { background: var(--hover); }
+.pill, .theme, .menu-btn { transition: border-color .2s var(--ease), background .2s var(--ease), transform .2s var(--ease); }
+.menu-btn:active, .theme:active { transform: scale(.94); }
+@media (max-width: 1099px) {
+  nav#site-nav.open { transform-origin: 50% 0; animation: menu-in .3s var(--ease-out); }
+  nav#site-nav.open a { animation: fade .3s var(--ease-out) both; animation-delay: calc(var(--i, 0) * 35ms + 60ms); }
+}
+@keyframes menu-in { from { opacity: 0; transform: translateY(-8px) scale(.98); } }
+
+.js .rv { opacity: 0; transform: translateY(18px); transition: opacity .75s var(--ease-out), transform .75s var(--ease-out); }
+.js .rv.in { opacity: 1; transform: none; }
+.svc { border-top-color: transparent; position: relative; }
+.svc::before { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: var(--line); transform-origin: 0 50%; transition: transform .9s var(--ease-out) .1s; }
+.svc:first-child::before { display: none; }
+.js .svc.rv::before { transform: scaleX(0); }
+.js .svc.rv.in::before { transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js .rv, .js [data-progress] li { opacity: 1; transform: none; }
+  .router.routing .pulses { opacity: 1; }
+  .tx { display: none; }
+}

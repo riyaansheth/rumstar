@@ -10,7 +10,7 @@ def how():
       <p>Most engagements follow this path. Some stop after step three, when the written recommendation is all a business needs.</p>
       <a class="btn" href="contact.html">Start with step one</a>
     </div>
-    <ol class="timeline">
+    <ol class="timeline" data-progress>
       <li>
         <span class="n">1</span>
         <div><h2>First call</h2>
@@ -179,11 +179,11 @@ GUIDE = [
     ("charges", "What you actually pay", '''
       <p>Every card payment carries several charges, usually rolled into one rate on your statement.</p>
       <dl class="terms">
-        <div><dt>Interchange</dt><dd>Paid by your acquirer to the bank that issued the customer's card. Set by the card schemes and, in the EEA, capped for most consumer cards.</dd></div>
-        <div><dt>Scheme fees</dt><dd>Charged by Visa, Mastercard and others for using their networks. Many separate line items, often updated. Not capped.</dd></div>
-        <div><dt>Acquirer margin</dt><dd>What your acquirer keeps for processing and settling your payments. This is where most negotiation happens.</dd></div>
-        <div><dt>Gateway fees</dt><dd>For the technology that connects your checkout to the acquirer. Sometimes bundled, sometimes charged per transaction.</dd></div>
-        <div><dt>Extras</dt><dd>Authorisation fees, refund fees, chargeback fees, PCI fees, statement fees, currency conversion and minimum monthly charges.</dd></div>
+        <div data-k="interchange"><dt>Interchange</dt><dd>Paid by your acquirer to the bank that issued the customer's card. Set by the card schemes and, in the EEA, capped for most consumer cards.</dd></div>
+        <div data-k="scheme"><dt>Scheme fees</dt><dd>Charged by Visa, Mastercard and others for using their networks. Many separate line items, often updated. Not capped.</dd></div>
+        <div data-k="margin"><dt>Acquirer margin</dt><dd>What your acquirer keeps for processing and settling your payments. This is where most negotiation happens.</dd></div>
+        <div data-k="gateway"><dt>Gateway fees</dt><dd>For the technology that connects your checkout to the acquirer. Sometimes bundled, sometimes charged per transaction.</dd></div>
+        <div data-k="extras"><dt>Extras</dt><dd>Authorisation fees, refund fees, chargeback fees, PCI fees, statement fees, currency conversion and minimum monthly charges.</dd></div>
       </dl>'''),
     ("pricing-models", "Blended or itemised pricing", '''
       <p>On <b>blended</b> pricing you pay one rate whatever the card. It is simple, but you cannot see how much is margin. On <b>itemised</b> pricing, often called interchange plus plus, interchange and scheme fees are passed through at cost and the provider adds a visible margin.</p>
@@ -237,11 +237,12 @@ def guide():
         <h2>{t}</h2>{c}
       </section>''' for i, t, c in GUIDE)
     gl = "\n".join(f'        <div><dt>{a}</dt><dd>{b}</dd></div>' for a, b in GLOSSARY)
-    layers = [("Extras", "neg c"), ("Gateway", "neg b"), ("Acquirer margin", "neg"), ("Scheme fees", "fixed b"), ("Interchange", "fixed")]
-    lyr = "\n".join(f'          <div class="lyr {c}" style="--z:{n}"><span>{t}</span></div>' for n, (t, c) in enumerate(layers))
-    stack = f'''    <div class="stack3d" aria-hidden="true">
-      <div class="stack-shadow"></div>
-      <div class="stack-rot">
+    layers = [("Extras", "neg c", "extras"), ("Gateway", "neg b", "gateway"), ("Acquirer margin", "neg", "margin"), ("Scheme fees", "fixed b", "scheme"), ("Interchange", "fixed", "interchange")]
+    lyr = "\n".join(f'          <div class="lyr {c}" data-k="{k}" style="--z:{n}"><span>{t}</span></div>' for n, (t, c, k) in enumerate(layers))
+    keys = "".join(f'<button type="button" class="lyr-key {c}" data-k="{k}" aria-pressed="false">{t}</button>' for t, c, k in reversed(layers))
+    stack = f'''    <div class="stack3d">
+      <div class="stack-shadow" aria-hidden="true"></div>
+      <div class="stack-rot" aria-hidden="true">
 {lyr}
           <div class="lyr face" style="--z:5">
             <i class="chip"></i>
@@ -249,6 +250,10 @@ def guide():
             <b>•••• •••• •••• 2026</b>
             <em>One rate on your statement</em>
           </div>
+      </div>
+      <div class="stack-ui">
+        <div class="lyr-keys" role="group" aria-label="The five charges in one card payment">{keys}</div>
+        <p class="lyr-cap" aria-live="polite">Choose a layer to see what it pays for.</p>
       </div>
     </div>
 '''

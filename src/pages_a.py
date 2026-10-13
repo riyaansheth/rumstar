@@ -41,22 +41,25 @@ def home():
         <a href="guide.html#charges" class="link">How each charge works</a>
       </div>
 
+      <div class="bar-wrap">
+      <span class="fee-tip" aria-hidden="true"></span>
       <div class="bar" aria-hidden="true">
-        <i class="seg fixed" data-v="3"></i>
-        <i class="seg fixed b" data-v="1.4"></i>
-        <i class="seg neg" data-v="8"></i>
-        <i class="seg neg b" data-v="2.6"></i>
-        <i class="seg neg c" data-v="2.8"></i>
+        <i class="seg fixed" data-v="3" data-k="0"></i>
+        <i class="seg fixed b" data-v="1.4" data-k="1"></i>
+        <i class="seg neg" data-v="8" data-k="2"></i>
+        <i class="seg neg b" data-v="2.6" data-k="3"></i>
+        <i class="seg neg c" data-v="2.8" data-k="4"></i>
+      </div>
       </div>
 
       <ul class="legend">
-        <li class="fixed"><b>Interchange</b><em>Paid to the card issuer. Capped in the EEA for consumer cards.</em></li>
-        <li class="fixed b"><b>Scheme fees</b><em>Set by Visa and Mastercard. Passed through.</em></li>
-        <li class="neg"><b>Acquirer margin</b><em>Your provider's cut. Negotiable.</em></li>
-        <li class="neg b"><b>Gateway</b><em>Often bundled, often overpriced.</em></li>
-        <li class="neg c"><b>Extras</b><em>PCI, authorisation, refund and statement fees.</em></li>
+        <li class="fixed" data-k="0" tabindex="0"><b>Interchange</b><em>Paid to the card issuer. Capped in the EEA for consumer cards.</em></li>
+        <li class="fixed b" data-k="1" tabindex="0"><b>Scheme fees</b><em>Set by Visa and Mastercard. Passed through.</em></li>
+        <li class="neg" data-k="2" tabindex="0"><b>Acquirer margin</b><em>Your provider's cut. Negotiable.</em></li>
+        <li class="neg b" data-k="3" tabindex="0"><b>Gateway</b><em>Often bundled, often overpriced.</em></li>
+        <li class="neg c" data-k="4" tabindex="0"><b>Extras</b><em>PCI, authorisation, refund and statement fees.</em></li>
       </ul>
-      <p class="note">Bar proportions are illustrative. Example figures will be added by Rumstar. Your real numbers come from your statements.</p>
+      <p class="note">Bar proportions are illustrative. Your real numbers come from your statements.</p>
     </div>
   </section>
 
@@ -68,6 +71,7 @@ def home():
 
     <div class="bench">
       <div class="tabs" role="tablist" aria-label="Services">
+        <span class="tab-ind" aria-hidden="true"></span>
         <button role="tab" id="t0" aria-controls="panel" aria-selected="true">Statement Review</button>
         <button role="tab" id="t1" aria-controls="panel" aria-selected="false" tabindex="-1">Provider selection</button>
         <button role="tab" id="t2" aria-controls="panel" aria-selected="false" tabindex="-1">Approval rates</button>
@@ -102,7 +106,7 @@ def home():
       <h2>Four steps. The first is free.</h2>
       <p>One call is normally enough to tell whether there is money to recover. If there is not, we say so. <a class="link" href="how-we-work.html">How we work</a></p>
     </div>
-    <ol class="steps">
+    <ol class="steps" data-progress>
       <li><span class="n">1</span><h3>Look</h3><p>A short call, then your statements. We come back with what you pay, what you should pay, and the gap.</p></li>
       <li><span class="n">2</span><h3>Recommend</h3><p>A written plan. Renegotiate with your current provider or move. Options ranked, trade-offs explained.</p></li>
       <li><span class="n">3</span><h3>Deliver</h3><p>We run the negotiation or the switch with the provider. You stay informed, not chasing.</p></li>
