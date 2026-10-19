@@ -94,7 +94,6 @@ def home():
         <button role="tab" id="t1" aria-controls="panel" aria-selected="false" tabindex="-1">Provider selection</button>
         <button role="tab" id="t2" aria-controls="panel" aria-selected="false" tabindex="-1">Approval rates</button>
         <button role="tab" id="t3" aria-controls="panel" aria-selected="false" tabindex="-1">Migration</button>
-        <button role="tab" id="t4" aria-controls="panel" aria-selected="false" tabindex="-1">High-risk sectors</button>
       </div>
       <div class="panel" id="panel" role="tabpanel" aria-labelledby="t0" tabindex="0">
         <h3>Every line of your statement, explained.</h3>
@@ -107,15 +106,13 @@ def home():
   <section id="industries" class="wrap">
     <div class="split-head">
       <h2>Built around how you sell.</h2>
-      <p>A subscription business loses money in different places from a travel agent or a trading platform. We start from your model. <a class="link" href="industries.html">All industries</a></p>
+      <p>A subscription business loses money in different places from a marketplace or an online shop. We start from your model. <a class="link" href="industries.html">All industries</a></p>
     </div>
     <ul class="sector-strip">
       <li><a href="industries.html#ecommerce"><b>Ecommerce and retail</b><span>Blended pricing, cross-border fees, false declines</span></a></li>
       <li><a href="industries.html#subscriptions"><b>Subscriptions and SaaS</b><span>Failed renewals and involuntary churn</span></a></li>
-      <li><a href="industries.html#travel"><b>Travel and hospitality</b><span>Chargeback exposure and reserves</span></a></li>
-      <li><a href="industries.html#igaming"><b>iGaming and betting</b><span>Few willing providers, licence checks, payouts</span></a></li>
-      <li><a href="industries.html#trading"><b>Forex and trading</b><span>Deposits, withdrawals and provider appetite</span></a></li>
       <li><a href="industries.html#marketplaces"><b>Marketplaces and platforms</b><span>Split payments and seller payouts</span></a></li>
+      <li><a href="industries.html#digital"><b>Digital goods</b><span>Fast fraud, low value disputes</span></a></li>
     </ul>
   </section>
 
@@ -207,7 +204,7 @@ SERVICES = [
       "A review of fraud rules and false positives",
       "A dispute process that wins more of what it should",
       "Early warning before a provider steps in"],
-     "Travel, digital goods, subscriptions and other sectors with high dispute exposure."),
+     "Digital goods, subscriptions and other businesses with high dispute exposure."),
     ("routing", "Routing and multiple providers",
      "When one provider is not enough.",
      "A second acquirer can lower costs, lift approval rates and keep you trading when a provider has an outage. It also adds work. We tell you whether it is worth it and, if so, how to set it up, with or without an orchestration layer.",
@@ -232,14 +229,6 @@ SERVICES = [
       "Your right to itemised statements in the EEA",
       "Surcharging and steering rules"],
      "Businesses that are unsure what their obligations are, or suspect they are overpaying for compliance."),
-    ("high-risk", "High-risk and specialist sectors",
-     "Stronger applications, sent to providers that actually want your business.",
-     "Gaming, trading, travel, nutraceuticals, dating and similar sectors face fewer willing providers, stricter checks and rolling reserves. We prepare a complete application file and help you approach providers with the right appetite. Providers decide whether to approve an account. Our job is to make sure your application is strong and goes to the right places.",
-     ["A complete application file: company documents, processing history, website check",
-      "An overview of your licences and AML controls, as providers will see them",
-      "A shortlist of providers with appetite for your sector",
-      "Reserves, fees and terms explained before you sign"],
-     "Businesses that have been refused, terminated or offered poor terms."),
     ("new-markets", "New markets and payment methods",
      "Take the payment methods your new customers already use.",
      "Cards are not the default everywhere. We help you add the local methods, currencies and acquiring that matter in the markets you are entering, from bank payments and wallets to buy now pay later.",
@@ -296,5 +285,5 @@ def services():
 
 {cta()}'''
     return page("services.html", "Payment Consulting: Fees, Providers, Approvals | Rumstar",
-                "Statement reviews, provider selection, contract negotiation, approval rates, chargebacks, migrations and high-risk support for merchants.",
+                "Statement reviews, provider selection, contract negotiation, approval rates, chargebacks, migrations and compliance for merchants.",
                 body)

@@ -80,8 +80,7 @@ FAQ = [
         ("Can I ask my provider for itemised statements?", "In the EEA, yes. The Interchange Fee Regulation requires acquirers to itemise charges by card category and brand unless you ask in writing for blended pricing."),
         ("Can I add a surcharge for card payments?", "Not for consumer cards covered by the EEA interchange caps. Where surcharging is allowed, it cannot exceed your direct cost, and national rules vary."),
         ("Why are good payments declined?", "Expired cards, temporary bank decisions, authentication problems and fraud rules that are too strict. Many of these can be reduced. <a class=\"link\" href=\"guide.html#declines\">More in our guide</a>."),
-        ("What is a rolling reserve?", "A share of your takings that a provider holds back for a period to cover future chargebacks. Common in higher risk sectors, and negotiable."),
-        ("What makes a business high-risk?", "Sectors with higher dispute, fraud or regulatory exposure, such as gaming, trading, travel and nutraceuticals. Fewer providers accept them, and terms are stricter."),
+        ("What is a rolling reserve?", "A share of your takings that a provider holds back for a period to cover future chargebacks. It is negotiable."),
     ]),
     ("About Rumstar", [
         ("Are you regulated?", "Rumstar is an advisory business. We are not a payment institution or e-money institution, and we do not process payments or hold client funds. Your contracts are always with licensed providers."),
@@ -143,9 +142,9 @@ def contact():
       <fieldset class="step" data-step="2" hidden>
         <legend>Your business</legend>
         <p class="q">What kind of business is it?</p>
-        <div class="chips">{chips("Business type", ["Ecommerce or retail", "Subscriptions or SaaS", "Travel or hospitality", "iGaming or betting", "Forex or trading", "Marketplace or platform", "Digital goods", "Other"])}</div>
+        <div class="chips">{chips("Business type", ["Ecommerce or retail", "Subscriptions or SaaS", "Marketplace or platform", "Digital goods", "Other"])}</div>
         <p class="q">What would you like help with? <em>Choose any</em></p>
-        <div class="chips">{chips("Help with", ["Lower fees", "A new provider", "Fewer declines", "Chargebacks or fraud", "Switching provider", "Compliance questions", "A high-risk account", "Not sure yet"], "checkbox")}</div>
+        <div class="chips">{chips("Help with", ["Lower fees", "A new provider", "Fewer declines", "Chargebacks or fraud", "Switching provider", "Compliance questions", "Not sure yet"], "checkbox")}</div>
       </fieldset>
 
       <fieldset class="step" data-step="3" hidden>

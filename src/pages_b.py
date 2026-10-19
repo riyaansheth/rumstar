@@ -102,36 +102,16 @@ SECTORS = [
       "Customers lost to failed payments rather than cancellations",
       "Authentication friction on recurring charges"],
      "Retry logic, card updater services, network tokens and the right exemptions for recurring payments."),
-    ("travel", "Travel and hospitality",
-     ["Long gaps between payment and delivery, so providers see higher risk",
-      "Rolling reserves that tie up cash",
-      "Chargebacks when plans change"],
-     "Provider selection, reserve negotiation, dispute handling and multi-currency setups."),
-    ("igaming", "iGaming and betting",
-     ["Few providers willing to accept the sector",
-      "Licence checks country by country",
-      "Fast, reliable payouts expected by players"],
-     "Complete application files, providers with appetite, payout methods and local payment options."),
-    ("trading", "Forex, CFD and trading",
-     ["Card deposits treated as high risk",
-      "Withdrawals and refunds that must go back the right way",
-      "Regulatory expectations on where client money sits"],
-     "Provider shortlists, bank transfer and open banking options, and clean onboarding files."),
     ("marketplaces", "Marketplaces and platforms",
      ["Collecting for sellers and paying them out",
       "Checking sellers before they can be paid",
       "Questions about whether your model needs a licence"],
      "Platform payment models, provider selection, and early flags on licensing questions for your lawyers."),
-    ("digital", "Digital goods and gaming",
+    ("digital", "Digital goods",
      ["Instant delivery, so fraud arrives fast",
       "High dispute rates on low value items",
       "Customers in many countries with different payment habits"],
      "Fraud rule tuning, chargeback controls, wallets and local methods."),
-    ("other-high-risk", "Other specialist sectors",
-     ["Nutraceuticals, dating, ticketing and similar sectors",
-      "Accounts refused or closed with little explanation",
-      "Reserves and terms that are hard to compare"],
-     "Application files, provider shortlists and plain explanations of the terms on offer."),
 ]
 
 
@@ -148,7 +128,7 @@ def industries():
         <p>{help_}</p>
       </article>''')
     body = hero("Industries", "Different businesses, different payment problems.",
-                "A subscription business loses money in different places from a travel agent or a trading platform. We start from how you sell, then look at what you pay.") + f'''
+                "A subscription business loses money in different places from a marketplace or an online shop. We start from how you sell, then look at what you pay.") + f'''
   <section class="wrap">
     <div class="sector-grid">
 {chr(10).join(cards)}
@@ -156,22 +136,15 @@ def industries():
   </section>
 
   <section class="wrap">
-    <div class="callout wide">
-      <h3>A note on high-risk sectors</h3>
-      <p>Some sectors need a licence before any provider will consider them, and providers make their own approval decisions. We tell you early if your model raises a licensing question, so you can take it to your legal advisers before it costs you time.</p>
-    </div>
-  </section>
-
-  <section class="wrap">
     <div class="split-head">
       <h2>Based in Nicosia.</h2>
-      <p>Cyprus is home to a large number of trading, gaming and fintech businesses. We are based here and focused on the questions EU and Cypriot rules raise for them, while working with businesses wherever they sell.</p>
+      <p>We are based in Cyprus and focused on the questions EU and Cypriot rules raise for the businesses we work with, wherever they sell.</p>
     </div>
   </section>
 
 {cta()}'''
-    return page("industries.html", "Payment Advice for Ecommerce, iGaming and Forex | Rumstar",
-                "Payment advice for ecommerce, subscriptions, travel, iGaming, forex and trading, marketplaces, digital goods and other specialist sectors.",
+    return page("industries.html", "Payment Advice for Ecommerce, Subscriptions and Marketplaces | Rumstar",
+                "Payment advice for ecommerce and retail, subscriptions and SaaS, marketplaces and platforms, and digital goods.",
                 body)
 
 
@@ -202,7 +175,7 @@ GUIDE = [
       <p>Common fixes include retrying at the right moment and in line with scheme rules, network tokens and account updater services that keep stored cards current, better authentication settings, and routing payments to a local acquirer.</p>'''),
     ("chargebacks", "Chargebacks and reserves", '''
       <p>A chargeback is a payment reversed by the customer's bank, usually after a dispute. You can contest it with evidence. The card schemes run monitoring programmes, and businesses whose dispute or fraud levels stay too high face fines and can lose their account.</p>
-      <p>A rolling reserve is a share of your takings that a provider holds back for a period, to cover future chargebacks. It is common in higher risk sectors and is negotiable, so read the terms before you sign.</p>'''),
+      <p>A rolling reserve is a share of your takings that a provider holds back for a period, to cover future chargebacks. It is negotiable, so read the terms before you sign.</p>'''),
     ("regulated", "Who is regulated, and who is not", '''
       <p>In Cyprus, payment institutions and e-money institutions are authorised and supervised by the Central Bank of Cyprus, under the laws that bring PSD2 into Cypriot law. The Central Bank keeps public registers of authorised firms, and you should check any provider you deal with against them.</p>
       <p>Advisers such as Rumstar are a different thing. We do not process payments, hold funds or act for a provider in the payment flow. Your contract is always with a licensed provider.</p>'''),

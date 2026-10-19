@@ -172,7 +172,6 @@ const services = [
   ['The right provider, on the right terms.', 'We shortlist acquirers, gateways and payment providers that fit your volumes, markets and checkout, run the tender and negotiate the contract. You sign it. We read it first.', ['Shortlist and tender', 'Contract negotiation', 'Small print review']],
   ['Stop losing sales to declines.', 'A declined payment is a lost customer. We find out why yours are failing and fix it with smarter routing, retries, card updater services and the right authentication settings.', ['Decline analysis', 'Routing and retries', '3D Secure tuning']],
   ['Switch provider without losing a day of trading.', 'We plan the move, coordinate the providers\' teams and test everything before go live. Your customers should not notice anything changed.', ['Migration plan', 'Token and data transfer', 'Go live support']],
-  ['Stronger applications for specialist sectors.', 'Gaming, trading, travel and other high-risk sectors face fewer willing providers. We prepare a complete application file and help you approach providers with the right appetite.', ['Application file', 'Provider shortlist', 'Terms explained']],
 ];
 const tabs = $$('[role=tab]');
 const panel = $('#panel');
